@@ -1,0 +1,1 @@
+//Main Javascript file, controls things like the main menu.

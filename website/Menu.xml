@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+
+	<none>
+		<tab src="login.php">Log In</tab>
+	</none>
+	
+	<employee>
+		<tab src="profile.php">Profile</tab>
+	</employee>
+	
+	<employer>
+		<tab src="profile.php">Profile</tab>
+	</employer>
+	
+	<admin>
+		<tab src="stats.php">Statistics</tab>
+	</admin>
+	
+</menu>
