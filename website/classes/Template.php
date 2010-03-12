@@ -25,26 +25,33 @@ class Template{
 		Template::JS($src);
 	}
 	
+	//Set the title of the page
+	public function Title($title){
+		$this->title = $title;
+	}
+	
 	//Writes the HTML for the header onto the page using the options specified
 	public function Header(){
 	
 		$menu_xml = simplexml_load_file("Menu.xml");
 
-		global $Auth;
+		global $Auth, $CurrentUser;
 		
-		switch($Auth->UserType()){
-			case Auth::$EMPLOYEE:
-				$tabs = $menu_xml->employee;
-				break;
-			case Auth::$EMPLOYER:
-				$tabs = $menu_xml->employer;
-				break;
-			case Auth::$ADMIN:
-				$tabs = $menu_xml->admin;
-				break;
-			default:
-				$tabs = $menu_xml->none;
-				break;
+		//Decide which tabs to grab from the XML menu
+		if($Auth->LoggedIn()){
+			switch($CurrentUser->type){
+				case User::$EMPLOYEE:
+					$tabs = $menu_xml->employee;
+					break;
+				case User::$EMPLOYER:
+					$tabs = $menu_xml->employer;
+					break;
+				case User::$ADMIN:
+					$tabs = $menu_xml->admin;
+					break;
+			}
+		}else{
+			$tabs = $menu_xml->none;
 		}
 		
 		?>
@@ -53,6 +60,8 @@ class Template{
 		 "http://www.w3.org/TR/html4/strict.dtd">
 		<html>
 			<head>
+			
+				<title><?php echo $this->title; ?></title>
 			
 				<!-- YUI CSS Reset -->
 				<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css">
@@ -69,11 +78,28 @@ class Template{
 				<?php foreach ($this->js as $js)
 					echo "<script type='text/javascript' src='js/{$js}.js'></script>";
 				?>
-	
+				
+			</head>
 			<body>
 
 				<!-- Header -->
-				<div id="hd">
+				<div id="hd_frame">
+					<div id="hd">
+						<div id="login">
+						<?php
+							if($Auth->LoggedIn()){
+								?>
+								<span id="name">Logged in as <?php echo $CurrentUser->loginID;?></span>
+								<a href="logout_action.php" id="action">Logout</span>	
+								<?php
+							}else{
+								?>
+								<a href="login.php" id="action">Login</span>	
+								<?php
+							}
+						?>
+						</div>
+					</div>
 				</div>
 				
 				<!-- Body -->
@@ -83,7 +109,6 @@ class Template{
 					<ul id="nav">
 						<?php
 							$path = $_SERVER['PHP_SELF'];
-								
 							
 							foreach ($tabs->tab as $tab) {
 								$src = (string)$tab->attributes()->src;

@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Purpose: Database connection class
 
@@ -6,45 +6,37 @@ Usage:
 	dbquery("SELECT * FROM Users WHERE user_id = %s", array(1));
 */
 
-$DB = array();
-$DB['host']			= 'localhost';
-$DB['username']		= '';
-$DB['passwd']		= '';
-$DB['dbname']		= '';
-
+$DB_INFO = array();
+$DB_INFO['host']		= 'localhost';
+$DB_INFO['username']	= 'cse480';
+$DB_INFO['passwd']		= 'cse480';
+$DB_INFO['dbname']		= 'cse480';
 
 /* Set up the default DB */
-$default_db = new MySQL_DB();
-
-function dbquery($query, $values){
-	global $default_db;
-	return $default_db->query($query, $values);
-}
-
+$DB = new MySQL_DB();
 
 // The actual class
 class MySQL_DB{
 
 	private $dbh;
 	
-	
 	function __construct(){
-			global $DB;
+		global $DB_INFO;
 
-			$this->dbh = mysql_connect($DB['host'],$DB['username'],$DB['passwd']);	
-			if (!$this->dbh ){
-				die("<b>Error establishing a database connection!</b>");
-			}
-			mysql_select_db($DB['dbname']);
+		$this->dbh = mysql_connect($DB_INFO['host'],$DB_INFO['username'],$DB_INFO['passwd']);	
+		if (!$this->dbh ){
+			die("<b>Error establishing a database connection!</b>");
 		}
+		mysql_select_db($DB_INFO['dbname']);
+	}
 
-	function query($query, $values=array()){
+	function Query($query, $values=array()){
 		foreach($values as $value){
 			$value = mysql_escape_string($value);
 		}
 		
 		$query = vsprintf($query, $values);
-		
+
 		$result = mysql_query($query, $this->dbh);
 		
 		if(!$result){
@@ -59,6 +51,14 @@ class MySQL_DB{
 
 			return $final_array;
 		}
+	}
+	
+	function QueryRow($query, $values=array()){
+		$result = $this->Query($query, $values);
+		if(count($result)){
+			return $result[0];
+		}
+		return null;
 	}
 	
 }

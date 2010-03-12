@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Users (
   UNIQUE INDEX SECONDARY(loginID)
 );
  
-CREATE TABLE IF NOT EXISTS ProspectiveEmployees (
+CREATE TABLE IF NOT EXISTS Employees (
   Users_userID INTEGER UNSIGNED NOT NULL,
   fname VARCHAR(32) NOT NULL,
   mname VARCHAR(32) NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS EmployeeCategory (
   PRIMARY KEY(categoryID),
   INDEX EmployeeCategory_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
-    REFERENCES ProspectiveEmployees(Users_userID)
+    REFERENCES Employees(Users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS EmployeKeywords (
   PRIMARY KEY(keywordID),
   INDEX EmployeKeywords_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
-    REFERENCES ProspectiveEmployees(Users_userID)
+    REFERENCES Employees(Users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS EmployeeSkills (
   PRIMARY KEY(skillID),
   INDEX Skills_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
-    REFERENCES ProspectiveEmployees(Users_userID)
+    REFERENCES Employees(Users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS Comments (
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
   FOREIGN KEY(employeeID)
-    REFERENCES ProspectiveEmployees(Users_userID)
+    REFERENCES Employees(Users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS Bookmarks (
   INDEX Employees_has_Job_FKIndex1(employeeID),
   INDEX Employees_has_Job_FKIndex2(jobID, JobAnnouncement_employerID),
   FOREIGN KEY(employeeID)
-    REFERENCES ProspectiveEmployees(Users_userID)
+    REFERENCES Employees(Users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
   FOREIGN KEY(jobID, JobAnnouncement_employerID)
