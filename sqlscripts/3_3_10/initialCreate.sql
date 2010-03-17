@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS Users (
+CREATE TABLE IF NOT EXISTS users (
   userID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   loginID VARCHAR(32) NOT NULL,
   passwd VARCHAR(32) NOT NULL,
@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS Users (
   UNIQUE INDEX SECONDARY(loginID)
 );
  
-CREATE TABLE IF NOT EXISTS Employees (
-  Users_userID INTEGER UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS employees (
+  users_userID INTEGER UNSIGNED NOT NULL,
   fname VARCHAR(32) NOT NULL,
   mname VARCHAR(32) NULL,
   lname VARCHAR(32) NOT NULL,
@@ -15,16 +15,16 @@ CREATE TABLE IF NOT EXISTS Employees (
   email VARCHAR(64) NULL,
   education ENUM('High School','College','Postgraduate') NULL,
   resumefile VARCHAR(64) NULL,
-  PRIMARY KEY(Users_userID),
-  INDEX Employees_FKIndex1(Users_userID),
-  FOREIGN KEY(Users_userID)
-    REFERENCES Users(userID)
+  PRIMARY KEY(users_userID),
+  INDEX employees_FKIndex1(users_userID),
+  FOREIGN KEY(users_userID)
+    REFERENCES users(userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS Employers (
-  Users_userID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS employers (
+  users_userID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(64) NOT NULL,
   streetNumber VARCHAR(32) NULL,
   city VARCHAR(32) NULL,
@@ -35,80 +35,80 @@ CREATE TABLE IF NOT EXISTS Employers (
   website VARCHAR(128) NULL,
   companyType VARCHAR(32) NULL,
   description TEXT NULL,
-  PRIMARY KEY(Users_userID),
-  INDEX Employers_FKIndex1(Users_userID),
+  PRIMARY KEY(users_userID),
+  INDEX employers_FKIndex1(users_userID),
   UNIQUE INDEX SECONDARY(name),
-  FOREIGN KEY(Users_userID)
-    REFERENCES Users(userID)
+  FOREIGN KEY(users_userID)
+    REFERENCES users(userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS EmployeeCategory (
+CREATE TABLE IF NOT EXISTS employeecategory (
   categoryID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employeeID INTEGER UNSIGNED NOT NULL,
   name VARCHAR(32) NOT NULL,
   PRIMARY KEY(categoryID),
-  INDEX EmployeeCategory_FKIndex1(employeeID),
+  INDEX employeecategory_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
-    REFERENCES Employees(Users_userID)
+    REFERENCES employees(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS Admins (
-  Users_userID INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY(Users_userID),
-  INDEX Admins_FKIndex1(Users_userID),
-  FOREIGN KEY(Users_userID)
-    REFERENCES Users(userID)
+CREATE TABLE IF NOT EXISTS admins (
+  users_userID INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(users_userID),
+  INDEX admins_FKIndex1(users_userID),
+  FOREIGN KEY(users_userID)
+    REFERENCES users(userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS EmployeKeywords (
+CREATE TABLE IF NOT EXISTS employeekeywords (
   keywordID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employeeID INTEGER UNSIGNED NOT NULL,
   keyword VARCHAR(32) NOT NULL,
   PRIMARY KEY(keywordID),
-  INDEX EmployeKeywords_FKIndex1(employeeID),
+  INDEX employeekeywords_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
-    REFERENCES Employees(Users_userID)
+    REFERENCES employees(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS EmployeeSkills (
+CREATE TABLE IF NOT EXISTS employeeskills (
   skillID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employeeID INTEGER UNSIGNED NOT NULL,
   name VARCHAR(32) NOT NULL,
   PRIMARY KEY(skillID),
   INDEX Skills_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
-    REFERENCES Employees(Users_userID)
+    REFERENCES employees(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS Comments (
+CREATE TABLE IF NOT EXISTS comments (
   employerID INTEGER UNSIGNED NOT NULL,
   employeeID INTEGER UNSIGNED NOT NULL,
   message TEXT NULL,
   postedTime TIMESTAMP NULL,
   PRIMARY KEY(employerID, employeeID),
-  INDEX Employers_has_Employees_FKIndex1(employerID),
-  INDEX Employers_has_Employees_FKIndex2(employeeID),
+  INDEX employers_has_employees_FKIndex1(employerID),
+  INDEX employers_has_employees_FKIndex2(employeeID),
   FOREIGN KEY(employerID)
-    REFERENCES Employers(Users_userID)
+    REFERENCES employers(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
   FOREIGN KEY(employeeID)
-    REFERENCES Employees(Users_userID)
+    REFERENCES employees(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS JobAnnouncement (
+CREATE TABLE IF NOT EXISTS jobannouncement (
   jobID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employerID INTEGER UNSIGNED NOT NULL,
   title VARCHAR(32) NULL,
@@ -121,89 +121,89 @@ CREATE TABLE IF NOT EXISTS JobAnnouncement (
   PRIMARY KEY(jobID, employerID),
   INDEX Job_FKIndex1(employerID),
   FOREIGN KEY(employerID)
-    REFERENCES Employers(Users_userID)
+    REFERENCES employers(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS JobKeywords (
+CREATE TABLE IF NOT EXISTS jobkeywords (
   jobKeywordID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employerID INTEGER UNSIGNED NOT NULL,
   jobID INTEGER UNSIGNED NOT NULL,
   name VARCHAR(32) NOT NULL,
   PRIMARY KEY(jobKeywordID),
-  INDEX JobKeywords_FKIndex1(jobID, employerID),
+  INDEX jobkeywords_FKIndex1(jobID, employerID),
   FOREIGN KEY(jobID, employerID)
-    REFERENCES JobAnnouncement(jobID, employerID)
+    REFERENCES jobannouncement(jobID, employerID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS JobSkills (
+CREATE TABLE IF NOT EXISTS jobskills (
   jobskillsID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employerID INTEGER UNSIGNED NOT NULL,
   jobID INTEGER UNSIGNED NOT NULL,
   name VARCHAR(32) NOT NULL,
   PRIMARY KEY(jobskillsID),
-  INDEX JobSkills_FKIndex1(jobID, employerID),
+  INDEX jobskills_FKIndex1(jobID, employerID),
   FOREIGN KEY(jobID, employerID)
-    REFERENCES JobAnnouncement(jobID, employerID)
+    REFERENCES jobannouncement(jobID, employerID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS Bookmarks (
+CREATE TABLE IF NOT EXISTS bookmarks (
   employeeID INTEGER UNSIGNED NOT NULL,
   jobID INTEGER UNSIGNED NOT NULL,
-  JobAnnouncement_employerID INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY(employeeID, jobID, JobAnnouncement_employerID),
-  INDEX Employees_has_Job_FKIndex1(employeeID),
-  INDEX Employees_has_Job_FKIndex2(jobID, JobAnnouncement_employerID),
+  jobannouncement_employerID INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(employeeID, jobID, jobannouncement_employerID),
+  INDEX employees_has_Job_FKIndex1(employeeID),
+  INDEX employees_has_Job_FKIndex2(jobID, jobannouncement_employerID),
   FOREIGN KEY(employeeID)
-    REFERENCES Employees(Users_userID)
+    REFERENCES employees(users_userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-  FOREIGN KEY(jobID, JobAnnouncement_employerID)
-    REFERENCES JobAnnouncement(jobID, employerID)
+  FOREIGN KEY(jobID, jobannouncement_employerID)
+    REFERENCES jobannouncement(jobID, employerID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS Notification (
+CREATE TABLE IF NOT EXISTS notification (
   notificationID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   jobID INTEGER UNSIGNED NOT NULL,
   toID INTEGER UNSIGNED NOT NULL,
   fromID INTEGER UNSIGNED NOT NULL,
-  JobAnnouncement_employerID INTEGER UNSIGNED NOT NULL,
+  jobannouncement_employerID INTEGER UNSIGNED NOT NULL,
   message TEXT NULL,
   timeSent TIMESTAMP NULL,
   PRIMARY KEY(notificationID, jobID, toID, fromID),
-  INDEX Users_has_Users_FKIndex1(fromID),
-  INDEX Users_has_Users_FKIndex2(toID),
-  INDEX Notification_FKIndex3(jobID, JobAnnouncement_employerID),
+  INDEX users_has_users_FKIndex1(fromID),
+  INDEX users_has_users_FKIndex2(toID),
+  INDEX notification_FKIndex3(jobID, jobannouncement_employerID),
   FOREIGN KEY(fromID)
-    REFERENCES Users(userID)
+    REFERENCES users(userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
   FOREIGN KEY(toID)
-    REFERENCES Users(userID)
+    REFERENCES users(userID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-  FOREIGN KEY(jobID, JobAnnouncement_employerID)
-    REFERENCES JobAnnouncement(jobID, employerID)
+  FOREIGN KEY(jobID, jobannouncement_employerID)
+    REFERENCES jobannouncement(jobID, employerID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
  
-CREATE TABLE IF NOT EXISTS JobCategory (
+CREATE TABLE IF NOT EXISTS jobcategory (
   jobcategoryID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employerID INTEGER UNSIGNED NOT NULL,
   jobID INTEGER UNSIGNED NOT NULL,
   name VARCHAR(32) NOT NULL,
   PRIMARY KEY(jobcategoryID),
-  INDEX JobCategory_FKIndex1(jobID, employerID),
+  INDEX jobcategory_FKIndex1(jobID, employerID),
   FOREIGN KEY(jobID, employerID)
-    REFERENCES JobAnnouncement(jobID, employerID)
+    REFERENCES jobannouncement(jobID, employerID)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
