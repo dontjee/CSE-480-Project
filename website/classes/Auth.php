@@ -4,7 +4,17 @@
 class Auth{
 	
 	public function UserType(){
-		return Auth::$EMPLOYEE;
+	    if( LoggedIn() )
+	    {
+		if( $_SESSION['user']->type == "Employer" )
+		{
+			return Auth::$EMPLOYER;
+		}
+		if( $_SESSION['user']->type == "Employee" )
+		{
+			return Auth::$EMPLOYEE;
+		}
+	    }
 	}
 	
 	public function User(){
