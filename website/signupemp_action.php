@@ -18,13 +18,13 @@ if( $password == $confirmPassword )
 	$userId = $userIdResult['userID'];
 
 	$userUpdate = $DB->Query("INSERT INTO employees(users_userID, fname, lname) VALUES (%s, '%s', '%s')", array($userId, $firstName, $lastName));
+	
+	// automatically login the user
+	$Auth->Login($userId);
+	header("Location: index.php");
 }
 else
 {
 	//unsuccessful signup
         header("Location: signupemp.php");
 }
-
-//Succesful login
-$Auth->Login($checkID['userID']);
-header("Location: index.php");
