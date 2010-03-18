@@ -40,7 +40,7 @@ class MySQL_DB{
 		$result = mysql_query($query, $this->dbh);
 		
 		if(!$result){
-			return;
+			return false;
 		}
 		
 		if(stripos($query, 'SELECT') !== false){
@@ -50,6 +50,10 @@ class MySQL_DB{
 				array_push($final_array, $row);
 
 			return $final_array;
+		}
+		else
+		{
+		    return $result;
 		}
 	}
 	

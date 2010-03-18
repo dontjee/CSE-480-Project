@@ -21,8 +21,7 @@ $Template->Header();
 	<br/>
 	<span class="row">
 		<label class="label" for="description">Description</label>
-		<textarea name="description" rows="2" cols="20">
-		</textarea>
+		<textarea name="description" rows="2" cols="20"></textarea>
 	</span>
 	<br/>
 	
@@ -55,6 +54,18 @@ $Template->Header();
 			<option value="College">College</option>
 			<option value="Postgraduate">Postgraduate</option>
 		</select>
+	</span>
+	<br/>
+
+	<span class="row">
+		<label class="label" for="category">Category</label>
+		<input name="category" class="field input" type="text"/>
+	</span>
+	<br/>
+	
+	<span class="row">
+		<label class="label" for="keyword">Job Keyword</label>
+		<input name="keyword" class="field input" type="text"/>
 	</span>
 	<br/>
 	<input id="submit" type="submit" value="Create" />
