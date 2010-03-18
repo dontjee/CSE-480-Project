@@ -13,6 +13,7 @@
 	
 	<employer>
 		<tab src="index.php">Home</tab>
+		<tab src="newjobpost.php">Post New Job</tab>
 		<tab src="profile.php">Profile</tab>
 	</employer>
 	

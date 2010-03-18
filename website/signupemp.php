@@ -5,8 +5,6 @@ require_once("std.php");
 $Template->CSS("signup");
 $Template->CSS("form");
 $Template->Header();
-
-$Auth->Login(1);
 ?>
 
 

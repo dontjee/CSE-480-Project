@@ -29,6 +29,10 @@ class Auth{
 	
 	//Restrict this page to ONLY users of the given type
 	public function Restrict($userType){
+	    if( $userType != $_SESSION['user']->type )
+	    {
+		header("Location: index.php");
+	    }
 	}
 	
 	//If the current user is of this type, redirect them to the home page.
