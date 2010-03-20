@@ -3,11 +3,12 @@
 require_once("std.php");
 
 $Template->CSS("profile");
+$Template->JS("profile");
 $Template->Header();
 
 if($CurrentUser->type==User::$EMPLOYEE){
 ?>
-<form action="javascript: employeeValidate()">
+<form action="">
 	<span class="left">First Name</span><input name="fname" type="text" /><br/>
 	<span class="left">Middle Name</span><input name="mname" type="text"/><br/>
 	<span class="left">Last Name</span><input name="lname" type="text"/><br/>
@@ -35,7 +36,7 @@ if($CurrentUser->type==User::$EMPLOYEE){
 		<option>Education</option>
 	</select><br/>
 	<span class="left" style="vertical-align:top;">Job Keywords</span><textarea name="skills"></textarea><br/>
-	<input type="submit" value="Submit"/>
+	<button onclick="employeeValidate()">Submit</button>
 </form>
 <?php 
 }else if($CurrentUser->type==User::$EMPLOYER){
