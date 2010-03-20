@@ -23,7 +23,7 @@ class User{
 	function __construct($userID, $type=null){
 		global $DB;
 	
-		$check = $DB->QueryRow("SELECT * FROM users WHERE userID = %s", array($userID));
+		$check = $DB->QueryRow("SELECT * FROM Users WHERE userID = %s", array($userID));
 
 		if($check){
 			$this->userID = $userID;
@@ -52,11 +52,11 @@ class User{
 	//Return the type of user based on which
 	public static function TypeFromID($userID){
 		global $DB;
-		if($DB->QueryRow("SELECT Users_userID FROM employees WHERE Users_userID = %s", array($userID)) )
+		if($DB->QueryRow("SELECT Users_userID FROM Employees WHERE Users_userID = %s", array($userID)) )
 			return User::$EMPLOYEE;
-		if($DB->QueryRow("SELECT Users_userID FROM employers WHERE Users_userID = %s", array($userID)) )
+		if($DB->QueryRow("SELECT Users_userID FROM Employers WHERE Users_userID = %s", array($userID)) )
 			return User::$EMPLOYER;
-		if($DB->QueryRow("SELECT Users_userID FROM admins WHERE Users_userID = %s", array($userID)) )
+		if($DB->QueryRow("SELECT Users_userID FROM Admins WHERE Users_userID = %s", array($userID)) )
 			return User::$ADMIN;
 		return null;
 	}

@@ -8,9 +8,8 @@ $loginID = $_POST['loginID'];
 $password = $_POST['password'];
 
 
-$checkID = $DB->QueryRow("SELECT userID FROM users WHERE loginID = '%s' AND passwd = '%s'",
+$checkID = $DB->QueryRow("SELECT userID FROM Users WHERE loginID = '%s' AND passwd = '%s'",
 						array($loginID, $password));
-		
 
 if($checkID){
 	//Succesful login

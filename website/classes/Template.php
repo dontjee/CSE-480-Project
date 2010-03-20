@@ -38,6 +38,7 @@ class Template{
 		global $Auth, $CurrentUser;
 		
 		//Decide which tabs to grab from the XML menu
+		$tabs = $menu_xml->none;
 		if($Auth->LoggedIn()){
 			switch($CurrentUser->type){
 				case User::$EMPLOYEE:
@@ -50,8 +51,6 @@ class Template{
 					$tabs = $menu_xml->admin;
 					break;
 			}
-		}else{
-			$tabs = $menu_xml->none;
 		}
 		
 		?>

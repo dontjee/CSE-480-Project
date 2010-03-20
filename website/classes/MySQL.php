@@ -7,10 +7,10 @@ Usage:
 */
 
 $DB_INFO = array();
-$DB_INFO['host']		= 'localhost';
-$DB_INFO['username']	= 'cse480';
-$DB_INFO['passwd']		= 'cse480';
-$DB_INFO['dbname']		= 'cse480';
+$DB_INFO['host']		= 'mysql-user.cse.msu.edu';
+$DB_INFO['username']	= 'mille449';
+$DB_INFO['passwd']		= 'A24503389';
+$DB_INFO['dbname']		= 'mille449';
 
 /* Set up the default DB */
 $DB = new MySQL_DB();

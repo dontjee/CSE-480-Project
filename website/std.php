@@ -5,6 +5,7 @@ require_once("classes/MySQL.php");
 require_once("classes/User.php");
 
 session_start();
+error_reporting(E_STRICT);
 
 require_once("classes/Auth.php");
 $Auth = new Auth();
