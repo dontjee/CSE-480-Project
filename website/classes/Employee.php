@@ -60,13 +60,17 @@ class Employee{
 	function GetComments($employerID)
 	{
 		global $DB;
-		$tempCommentResult = array();
+		$tempCommentArray = array();
 
-		$comments = $DB->QueryRow("SELECT employerID, employeeID, message, postedTime FROM comments WHERE employerID = %s AND employeeID = %s", array( $employerID, $this->userID ));
+		$comments = $DB->Query("SELECT commentID, employerID, employeeID, message, postedTime FROM comments WHERE employerID = %s AND employeeID = %s", array( $employerID, $this->userID ));
 		if($comments)
 		{
-		    return $comments;
+		    foreach( $comments as &$comment )
+		    {
+			$comment = new Comment($comment['commentID'], $comment['employerID'], $comment['employeeID'], $comment['message'], $comment['postedTime']);
+			array_push($tempCommentArray, $comment);
+		    }
 		}
-		return $tempCommentResult;
+		return $tempCommentArray;
 	}
 }

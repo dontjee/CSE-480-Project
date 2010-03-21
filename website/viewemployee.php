@@ -2,6 +2,7 @@
 
 require_once("std.php");
 require_once("classes/Employee.php");
+require_once("classes/Comment.php");
 
 $Auth->Restrict("Employer");
 
@@ -58,14 +59,16 @@ $Template->Header();
 	    <th style="width:175px;"><b>Comment</th>
 	    <th style="width:150px;"><b>Posted Time </th>
     </tr>
+<?php foreach($comments as &$comment){ ?>
 	<tr>
 	    <td>
-	    	<?php echo $comments['message']; ?>
+	    	<?php echo $comment->message; ?>
 	    </td>
 	    <td>
-		<?php echo $comments['postedTime'];?>
+		<?php echo $comment->postedTime;?>
 	    </td>
 	</tr>
+<?php } ?>
     </table>
 
 	<p><a href="addcomment.php?uid=<?php echo $employee->userID ?>">Add Comment</a></p>
