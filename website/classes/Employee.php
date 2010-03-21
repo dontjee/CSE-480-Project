@@ -57,4 +57,16 @@ class Employee{
 		$this->education = $education;
 		$this->resumefile = $resumefile;
 	}
+	function GetComments($employerID)
+	{
+		global $DB;
+		$tempCommentResult = array();
+
+		$comments = $DB->QueryRow("SELECT employerID, employeeID, message, postedTime FROM comments WHERE employerID = %s AND employeeID = %s", array( $employerID, $this->userID ));
+		if($comments)
+		{
+		    return $comments;
+		}
+		return $tempCommentResult;
+	}
 }

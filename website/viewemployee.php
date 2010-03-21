@@ -5,6 +5,8 @@ require_once("classes/Employee.php");
 
 $Auth->Restrict("Employer");
 
+$user = $Auth->User();
+
 $employee = new Employee($_GET['id']);
 
 $Template->Title("Employer User View");
@@ -46,6 +48,25 @@ $Template->Header();
 
 	</span>
 	<br/>
+
+
+<?php
+	$comments = $employee->GetComments($user->userID);
+?>
+<table>
+    <tr>
+	    <th style="width:175px;"><b>Comment</th>
+	    <th style="width:150px;"><b>Posted Time </th>
+    </tr>
+	<tr>
+	    <td>
+	    	<?php echo $comments['message']; ?>
+	    </td>
+	    <td>
+		<?php echo $comments['postedTime'];?>
+	    </td>
+	</tr>
+    </table>
 
 	<p><a href="addcomment.php?uid=<?php echo $employee->userID ?>">Add Comment</a></p>
 <?php
