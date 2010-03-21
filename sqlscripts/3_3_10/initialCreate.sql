@@ -91,11 +91,12 @@ CREATE TABLE IF NOT EXISTS employeeskills (
 );
  
 CREATE TABLE IF NOT EXISTS comments (
+  commentID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   employerID INTEGER UNSIGNED NOT NULL,
   employeeID INTEGER UNSIGNED NOT NULL,
   message TEXT NULL,
   postedTime TIMESTAMP NULL,
-  PRIMARY KEY(employerID, employeeID),
+  PRIMARY KEY(commentID),
   INDEX employers_has_employees_FKIndex1(employerID),
   INDEX employers_has_employees_FKIndex2(employeeID),
   FOREIGN KEY(employerID)
