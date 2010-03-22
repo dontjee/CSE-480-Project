@@ -8,12 +8,14 @@ if(!$Auth->LoggedIn())
 	header("location:index.php");
 }
 
+$user = $Auth->User();
 $job = new Job($_GET['id']);
 
 $Template->Title(" Job");
 $Template->Header();
 
 ?>
+
 	<span class="row">
 		<b><label class="label">Employer Name: </label></b>
 		<?php echo $job->name;?>
@@ -83,6 +85,9 @@ $Template->Header();
 
 	</span>
 	<br/>
+
+	<?php if( $user->type == "Employee" )?>
+		<br/><br/><a href="bookmark_action.php?jID=<?php echo $job->jobID;?>">Bookmark This Job</a>
 
 <?php
 $Template->Footer();
