@@ -1,5 +1,17 @@
 <?php
 require_once("std.php");
+if ($CurrentUser->type ==User::$EMPLOYEE){
+	header("location: profileemp.php");
+}
+else if ($CurrentUser->type ==User::$EMPLOYER){
+	header("location: profileemployer.php");
+}
+//else if ($CurrentUser->type ==User::$ADMIN){
+//	
+//}
+else{
+	header("location: index.php");
+} 
 $_REQUEST=array_map("mysql_real_escape_string",$_REQUEST);
 
 $Template->CSS_JS("profile");
