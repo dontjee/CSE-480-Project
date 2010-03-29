@@ -2,12 +2,14 @@
 
 require_once("std.php");
 
+$Auth->Restrict(User::$EMPLOYER);
+
 $user = $Auth->User();
 
 $title = $_POST['title'];
 $description = $_POST['description'];
 $closingDateString = $_POST['closingDate'];
-$closingDate = date(closingDateString);
+$closingDate = date($closingDateString);
 $location = $_POST['location'];
 $jobType = $_POST['jobType'];
 $education = $_POST['education'];
@@ -21,15 +23,14 @@ $userIdResult = $DB->QueryRow("SELECT jobID, posted FROM jobannouncement WHERE e
 $jobID = $userIdResult['jobID'];
 
 
-$createResponse2 = $DB->Query("INSERT INTO jobcategory(employerID, jobID, name) VALUES (%s, %s, '%s')",
-array($user->userID, $jobID, $category)); 
+$createResponse2 = $DB->Query("INSERT INTO jobcategory(jobID, name) VALUES (%s, '%s')",
+array($jobID, $category)); 
 
 
-$createResponse2 = $DB->Query("INSERT INTO jobkeywords(employerID, jobID, name) VALUES (%s, %s, '%s')",
-array($user->userID, $jobID, $keyword)); 
+$createResponse2 = $DB->Query("INSERT INTO jobkeywords(jobID, name) VALUES (%s, '%s')",
+array($jobID, $keyword)); 
 
 
-$Template->CSS("job");
 $Template->CSS("form");
 $Template->Header();
 

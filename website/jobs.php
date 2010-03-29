@@ -25,7 +25,7 @@ foreach( $jobs as &$job )
 {?>
     <tr>
 	<td>
-	    <?php echo $job->name;?>
+	    <?php echo $job->employer->name;?>
 	</td>
 	<td>
 	    <a href="jobposting.php?id=<?php echo $job->jobID;?>" style="color:#CCC; text-decoration:underline;"><?php echo $job->title;?></a>

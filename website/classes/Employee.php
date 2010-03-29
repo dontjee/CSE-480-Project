@@ -17,12 +17,12 @@ class Employee{
 	    switch( func_num_args() )
 	    {
 		default:
-                case 1:
-		    self::construct1($argv[0]);
-		    break;
-		case 11:
-		    self::construct9($argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6], $argv[7], $argv[8] );
-		    break;
+			case 1:
+				self::construct1($argv[0]);
+				break;
+			case 9:
+				self::construct9($argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6], $argv[7], $argv[8] );
+				break;
 	    }
 	}
 	
@@ -46,6 +46,7 @@ class Employee{
 		}
 
 	}
+	
 	function construct9($userID, $loginID, $fname, $mname, $lname, $dob, $email, $education, $resumefile){
 		$this->userID = $userID;
 		$this->loginID = $loginID;
@@ -57,6 +58,7 @@ class Employee{
 		$this->education = $education;
 		$this->resumefile = $resumefile;
 	}
+	
 	function GetComments($employerID)
 	{
 		global $DB;

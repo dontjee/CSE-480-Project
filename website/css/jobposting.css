@@ -1,0 +1,38 @@
+#buttons{
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 10px auto 30px auto;
+}
+
+.action_button{
+	border: 1px solid #999;
+	margin: 0 10px;
+	padding: 4px 20px;
+	cursor: pointer;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.action_button:hover{
+	background: #FF9933;
+	border: 1px solid #C60;
+}
+.row{
+	display: block;
+	float: left;
+	margin: 4px 0 0 0;
+}
+
+.row>label{
+	display: block;
+	font-weight: bold;
+	width: 200px;
+	float: left;
+}
+
+.row>span{
+	display: block;
+	width: 200px;
+	float: left;
+}

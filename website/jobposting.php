@@ -3,92 +3,87 @@
 require_once("std.php");
 require_once("classes/Job.php");
 
-if(!$Auth->LoggedIn())
-{
-	header("location:index.php");
-}
+//Boot out anyone who's not logged in
+$Auth->UsersOnly();
 
 $user = $Auth->User();
 $job = new Job($_GET['id']);
 
 $Template->Title(" Job");
+$Template->CSS("jobposting");
+$Template->JS("jobposting");
 $Template->Header();
 
 ?>
 
+	<!-- Loader for ajax stuff -->
+	<span id="loading" class="hidden"><img src="images/loading.gif"/></span>
+	
+	<!-- Alert after ajax stuff happens -->
+	<span id="alert" class="hidden">Alert will be shown here!</span>
+
+	<!-- Only Users should see these buttons -->
+	<?php if( $user->type == "Employee" ){ ?>
+	<div id="buttons">
+		<span class="action_button" id="bookmark"">Bookmark Job</span>
+		<span class="action_button" id="interested">Express Interest</span>
+	</div>
+	<?php } ?>
+
+	<!-- Everyone sees this -->
 	<span class="row">
-		<b><label class="label">Employer Name: </label></b>
-		<?php echo $job->name;?>
-
+		<label>Employer Name: </label>
+		<span><?php echo $job->employer->name;?></span>
 	</span>
-	<br/>
 
 	<span class="row">
-		<b><label class="label">Job Title: </label></b>
-		<?php echo $job->title;?>
-
+		<label>Job Title: </label>
+		<span><?php echo $job->title;?></span>
 	</span>
-	<br/>
 
 	<span class="row">
-		<b><label class="label">Time Posted: </label></b>
-		<?php echo $job->posted;?>
-
+		<label>Time Posted: </label>
+		<span><?php echo $job->posted;?></span>
 	</span>
-	<br/>
 	
 	<span class="row">
-		<b><label class="label">Job Closing Date: </label></b>
-		<?php echo $job->closingDate;?>
-
+		<label>Closing Date: </label>
+		<span><?php echo $job->closingDate;?></span>
 	</span>
-	<br/>
 
 	<span class="row">
-		<b><label class="label">Job Location: </label></b>
-		<?php echo $job->location;?>
-
+		<label>Location: </label>
+		<span><?php echo $job->location;?></span>
 	</span>
-	<br/>
 
 	<span class="row">
-		<b><label class="label">Job Type: </label></b>
-		<?php echo $job->jobType;?>
-
+		<label>Job Type: </label>
+		<span><?php echo $job->jobType;?></span>
 	</span>
-	<br/>
 
 	<span class="row">
-		<b><label class="label">Job Description: </label></b>
-		<?php echo $job->description;?>
-
+		<label>Description: </label>
+		<span><?php echo $job->description;?></span>
 	</span>
-	<br/>
 
 	<span class="row">
-		<b><label class="label">Education Level Required: </label></b>
-		<?php echo $job->education;?>
-
+		<label>Education Level Required: </label>
+		<span><?php echo $job->education;?></span>
 	</span>
-	<br/>
+
+	<!-- These need to be changed because they will be multi-valued
+	<span class="row">
+		<label>Category: </label>
+		<span><?php //echo $job->category;?></span>
+	</span>
 
 	<span class="row">
-		<b><label class="label">Job Category: </label></b>
-		<?php echo $job->category;?>
-
+		<label>Keyword: </label>
+		<span><?php //echo $job->keyword;?></span>
 	</span>
-	<br/>
+	-->
 
-	<span class="row">
-		<b><label class="label">Job Keyword: </label></b>
-		<?php echo $job->keyword;?>
-
-	</span>
-	<br/>
-
-	<?php if( $user->type == "Employee" )?>
-		<br/><br/><a href="bookmark_action.php?jID=<?php echo $job->jobID;?>">Bookmark This Job</a>
-
+		
 <?php
 $Template->Footer();
 ?>

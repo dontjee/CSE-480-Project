@@ -94,6 +94,7 @@ class Template{
 								<?php
 							}else{
 								?>
+								<span id="name">Not logged in.</span>
 								<a href="login.php" id="action">Login</span>	
 								<?php
 							}

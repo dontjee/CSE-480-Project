@@ -4,17 +4,7 @@
 class Auth{
 	
 	public function UserType(){
-	    if( LoggedIn() )
-	    {
-		if( $_SESSION['user']->type == "Employer" )
-		{
-			return Auth::$EMPLOYER;
-		}
-		if( $_SESSION['user']->type == "Employee" )
-		{
-			return Auth::$EMPLOYEE;
-		}
-	    }
+	    return $this->User()->type;
 	}
 	
 	public function User(){
@@ -28,16 +18,27 @@ class Auth{
 	}
 	
 	//Restrict this page to ONLY users of the given type
+	public function UsersOnly(){
+		if(!$this->LoggedIn())
+			$this->SendHome();
+	}
+	
+	//Restrict this page to ONLY users of the given type
 	public function Restrict($userType){
-	    if( $userType != $_SESSION['user']->type )
-	    {
-		header("Location: index.php");
+	    if(!$this->LoggedIn() || $userType != $_SESSION['user']->type ){
+			$this->SendHome();
 	    }
 	}
 	
 	//If the current user is of this type, redirect them to the home page.
 	public function DontAllow($userType){
-		//TODO: Redirect to homepage.
+		if($this->User()->type == $userType)
+			$this->SendHome();
+	}
+	
+	public function SendHome(){
+		header("Location: index.php");
+		die();
 	}
 	
 	public function Login($userID){
