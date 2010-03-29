@@ -99,3 +99,24 @@ a:hover{
 	padding: 10px;
 	width: 778px;
 }
+
+/* Useful elements for various standard things in the site */
+
+#loading, #alert{
+	display: block;
+	width: 100%;
+	padding-top: 20px;
+	height: 40px;
+	text-align: center;
+}
+
+#loading{
+	margin: 1px 0;
+}
+
+#alert{
+	background: #9F9;
+	font-size: 1.2em;
+	border-top: 1px solid #060;
+	border-bottom: 1px solid #060;
+}
