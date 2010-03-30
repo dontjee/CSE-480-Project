@@ -1,9 +1,6 @@
-
-function showResumeUpload(){
-	
-	$("chooseResume").style.display="block";
+function showResumeUpload(){	
+	document.getElementById("chooseResume").style.display="inline-block";
 }
-
 
 $(function() {
 	$("#dob").datepicker({
@@ -16,7 +13,8 @@ $(function() {
 		yearRange: "1920:2010"
 		});	
 });
-$.datepicker.setDefaults({
-	   showOn: 'both'
-});
+//$.datepicker.setDefaults({
+//	   showOn: 'both'
+//});
+
 		

@@ -13,3 +13,9 @@ $CurrentUser = $Auth->User();
 
 require_once("classes/Template.php");
 $Template = new Template();
+
+function print_rr($array){
+	echo "<pre>";
+	print_r($array);
+	echo "</pre>";
+}

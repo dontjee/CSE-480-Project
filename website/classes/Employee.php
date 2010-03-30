@@ -40,7 +40,7 @@ class Employee{
 			$this->dob = $check['dob'];
 			$this->email = $check['email'];
 			$this->education = $check['education'];
-			$this->resumeFile = $check['resumefile'];
+			$this->resumefile = $check['resumefile'];
 		}else{
 			$this->employeeID = -1;
 		}

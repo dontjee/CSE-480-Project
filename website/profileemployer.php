@@ -5,6 +5,7 @@ if ($CurrentUser->type!=User::$EMPLOYER){
 }
 require_once("classes/Employer.php");
 $Template->CSS_JS("profile");
+$Template->CSS("form");
 $Template->Title("Employer Profile");
 $Template->Header();
 
