@@ -43,7 +43,7 @@ $Template->Header();
 
 	<span class="row">
 		<label>Time Posted: </label>
-		<span><?php echo $job->posted;?></span>
+		<span><?php echo PrettyDate($job->posted, true);?></span>
 	</span>
 	
 	<span class="row">
@@ -71,18 +71,29 @@ $Template->Header();
 		<span><?php echo $job->education;?></span>
 	</span>
 
-	<!-- These need to be changed because they will be multi-valued
 	<span class="row">
 		<label>Category: </label>
-		<span><?php //echo $job->category;?></span>
+		<span>
+		    <?php 
+		    $categories = $job->Categories();
+		    foreach( $categories as &$category )
+		    {
+		       echo $category . ', ';
+		    }?>
+		</span>
 	</span>
 
 	<span class="row">
 		<label>Keyword: </label>
-		<span><?php //echo $job->keyword;?></span>
+		<span>
+		    <?php 
+		    $keywords = $job->Keywords();
+		    foreach( $keywords as $keyword )
+		    {
+		       echo $keyword . ', ';
+		    }?>
+		</span>
 	</span>
-	-->
-
 		
 <?php
 $Template->Footer();

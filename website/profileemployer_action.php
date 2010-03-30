@@ -1,12 +1,14 @@
 <?php 
 require_once("std.php");
-if ($CurrentUser->type!=User::$EMPLOYER){
-	header("location: index.php");
-}
+
+$Auth->Restrict("Employer");
+
 if (sizeof($_POST)==0){
 	header("location: profileemployer.php");
 	die;
 }
+
+
 $_POST=array_map("mysql_real_escape_string",$_POST);
 
 $query ="UPDATE employers SET ";

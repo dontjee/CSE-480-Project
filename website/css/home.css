@@ -1,0 +1,47 @@
+.panel{
+	float: left;
+	width: 350px;
+	margin: 0 25px;
+}
+
+.panel>.title{
+	width: 100%;
+	color: #333;
+	display: block;
+	font-weight: bold;
+	padding: 4px;
+	border-bottom: none;
+}
+
+
+.panel>div{
+	float: left;
+	display: block;
+	padding: 8px 4px;
+	border-bottom: 1px solid #CCC;
+}
+
+.panel>div:hover{
+	background: #EFE;
+}
+
+.panel .details{
+	color: #666;
+	font-size: .8em;
+	margin-top:4px;
+}
+
+.panel .delete{
+	float: right;
+	color: #A00;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.panel>span>.remove:hover{
+	color: #F00;
+}
+
+.bookmark>.employer{
+	width: 100px;
+}

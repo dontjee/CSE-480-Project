@@ -14,8 +14,18 @@ $CurrentUser = $Auth->User();
 require_once("classes/Template.php");
 $Template = new Template();
 
+// Wrapper for the print_r() function for quick debugging 
 function print_rr($array){
 	echo "<pre>";
 	print_r($array);
 	echo "</pre>";
+}
+
+
+//Returns a standard time/date format for consitency in the site
+function PrettyDate($datetime, $includeTime = false){
+	$timestamp = strtotime($datetime);
+	if($includeTime)
+		return date("h:ia \o\\n F jS, Y", $timestamp);
+	return date("F jS, Y", $timestamp);
 }

@@ -59,6 +59,10 @@ class Employee{
 		$this->resumefile = $resumefile;
 	}
 	
+	function FullName(){
+		return $this->fname . ' ' . $this->mname . ' ' . $this->lname;
+	}
+	
 	function GetComments($employerID)
 	{
 		global $DB;

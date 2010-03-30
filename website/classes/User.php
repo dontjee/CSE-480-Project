@@ -8,6 +8,9 @@ Usage:	$user = new User(1, User::$Employee);	//Contructor accepts userID and opt
 		
 */
 
+require_once("Employee.php");
+require_once("Employer.php");
+
 class User{
 
 	//User types enumerations
@@ -59,6 +62,18 @@ class User{
 		if($DB->QueryRow("SELECT Users_userID FROM Admins WHERE Users_userID = %s", array($userID)) )
 			return User::$ADMIN;
 		return null;
+	}
+	
+	//Return the subclass based on the user type, given the user ID.
+	public static function GetUserSubclass($userID){
+		switch(User::TypeFromID($userID)){
+			case User::$EMPLOYEE:
+				return new Employee($userID);
+			case User::$EMPLOYER:
+				return new Employer($userID);
+			case User::$ADMIN:
+				return new User($userID);
+		}
 	}
 
 }
