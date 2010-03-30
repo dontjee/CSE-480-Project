@@ -7,6 +7,12 @@ $Template->CSS("form");
 $Template->Header();
 ?>
 
+<?php
+	if( isset( $_GET['e'] ) )
+	{
+	    echo "<p style='background-color:red; color: white;'>" . urldecode($_GET['e']) . "</p>";
+	}
+?>
 
 <form action="signupemployer_action.php" method="post" id="signup_form">
 

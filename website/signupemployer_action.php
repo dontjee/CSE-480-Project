@@ -11,6 +11,13 @@ $name = $_POST['name'];
 
 if( $password == $confirmPassword )
 {
+	$doesUserNameExist = $DB->QueryRow("SELECT * FROM users WHERE loginID = '%s'", array($loginID));
+	if( $doesUserNameExist )
+	{
+	    // user already exists
+	    header("Location: signupemployer.php?e=User+already+exists");
+	    return;
+	}
 	$createResponse = $DB->Query("INSERT INTO users(loginID, passwd) VALUES ('%s', '%s')", array($loginID, $password));
 
 	$userIdResult = $DB->QueryRow("SELECT userID FROM users WHERE loginID = '%s'", array($loginID));
