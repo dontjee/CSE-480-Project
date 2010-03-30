@@ -72,10 +72,40 @@ class Job{
 	}
 	
 	function Keywords(){
-		//TODO lookup and return array of keywords for this job
+		global $DB;
+	
+		$check = $DB->Query("SELECT * 
+					FROM jobkeywords
+					WHERE jobID = %s",
+					array($this->jobID));
+
+		$keywords = array();
+		if($check){
+			foreach( $check as &$keyword )
+			{
+				array_push( $keywords, $keyword['name'] );
+			}
+		}
+
+		return $keywords;
 	}
 	
 	function Categories(){
-		//TODO lookup and return array of categories for this job
+		global $DB;
+	
+		$check = $DB->Query("SELECT * 
+					FROM jobcategory
+					WHERE jobID = %s",
+					array($this->jobID));
+
+		$categories = array();
+		if($check){
+			foreach( $check as &$category )
+			{
+				array_push( $categories, $category['name'] );
+			}
+		}
+
+		return $categories;
 	}
 }

@@ -23,12 +23,20 @@ $userIdResult = $DB->QueryRow("SELECT jobID, posted FROM jobannouncement WHERE e
 $jobID = $userIdResult['jobID'];
 
 
-$createResponse2 = $DB->Query("INSERT INTO jobcategory(jobID, name) VALUES (%s, '%s')",
-array($jobID, $category)); 
+$categories = explode( ",", $category);
+foreach( $categories as &$catToInsert )
+{
+    $createResponse2 = $DB->Query("INSERT INTO jobcategory(jobID, name) VALUES (%s, '%s')",
+    array($jobID, $catToInsert)); 
+}
 
+$words = explode( ",", $keyword);
+foreach( $words as &$word )
+{
+    $createResponse3 = $DB->Query("INSERT INTO jobkeywords(jobID, name) VALUES (%s, '%s')",
+    array($jobID, $word)); 
+}
 
-$createResponse2 = $DB->Query("INSERT INTO jobkeywords(jobID, name) VALUES (%s, '%s')",
-array($jobID, $keyword)); 
 
 
 $Template->CSS("form");

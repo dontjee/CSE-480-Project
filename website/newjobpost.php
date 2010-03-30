@@ -64,7 +64,7 @@ $Template->Header();
 	<br/>
 	
 	<span class="row">
-		<label class="label" for="keyword">Job Keyword</label>
+		<label class="label" for="keyword">Job Keywords (separated by commas)</label>
 		<input name="keyword" class="field input" type="text"/>
 	</span>
 	<br/>
