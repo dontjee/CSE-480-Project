@@ -3,10 +3,6 @@
 
 class Auth{
 	
-	public function UserType(){
-	    return $this->User()->type;
-	}
-	
 	public function User(){
 		if(isset($_SESSION['user']))
 			return $_SESSION['user'];
@@ -33,6 +29,12 @@ class Auth{
 	//If the current user is of this type, redirect them to the home page.
 	public function DontAllow($userType){
 		if($this->User()->type == $userType)
+			$this->SendHome();
+	}
+	
+	//Only allow the specified user to see this page
+	public function Only($userID){
+		if($this->User()->userID != $userID)
 			$this->SendHome();
 	}
 	

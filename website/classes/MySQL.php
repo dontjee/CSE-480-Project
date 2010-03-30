@@ -50,9 +50,7 @@ class MySQL_DB{
 				array_push($final_array, $row);
 
 			return $final_array;
-		}
-		else
-		{
+		}else{
 		    return $result;
 		}
 	}

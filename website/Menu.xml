@@ -7,14 +7,14 @@
 	</none>
 	
 	<employee>
-		<tab src="index.php">Home</tab>
+		<tab src="employee_home.php">Home</tab>
 		<tab src="jobs.php">Jobs</tab>
 		<tab src="bookmarks.php">Bookmarks</tab>
 		<tab src="profile.php">Profile</tab>
 	</employee>
 	
 	<employer>
-		<tab src="index.php">Home</tab>
+		<tab src="employer_home.php">Home</tab>
 		<tab src="newjobpost.php">Post New Job</tab>
 		<tab src="jobs.php">Jobs</tab>
 		<tab src="employees.php">Employees</tab>

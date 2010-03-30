@@ -12,3 +12,13 @@ $CurrentUser = $Auth->User();
 
 require_once("classes/Template.php");
 $Template = new Template();
+
+
+
+//Returns a standard time/date format for consitency in the site
+function PrettyDate($datetime, $includeTime = false){
+	$timestamp = strtotime($datetime);
+	if($includeTime)
+		return date("h:ia \o\\n F jS, Y", $timestamp);
+	return date("F jS, Y", $timestamp);
+}

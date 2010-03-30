@@ -43,7 +43,7 @@ $Template->Header();
 
 	<span class="row">
 		<label>Time Posted: </label>
-		<span><?php echo $job->posted;?></span>
+		<span><?php echo PrettyDate($job->posted, true);?></span>
 	</span>
 	
 	<span class="row">
@@ -88,7 +88,7 @@ $Template->Header();
 		<span>
 		    <?php 
 		    $keywords = $job->Keywords();
-		    foreach( $keywords as &$keyword )
+		    foreach( $keywords as $keyword )
 		    {
 		       echo $keyword . ', ';
 		    }?>
