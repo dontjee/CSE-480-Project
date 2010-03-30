@@ -34,7 +34,7 @@ $Employer = new Employer($CurrentUser->userID);
 	?>
 	</select><br/>
 	<span class="left" style="vertical-align:top;">Description</span><textarea name="description"><?php echo $Employer->description;?></textarea><br/>
-	<button onclick="employerValidate()">Update</button>
+	<input type="submit" value="Update"/>
 </form>
 <?php 
 

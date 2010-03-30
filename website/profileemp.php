@@ -22,29 +22,6 @@ $Emp = new Employee($CurrentUser->userID);
 //	public $education;
 //	public $resumefile;
 ?>
-<script type="text/javascript">
-	$(function() {
-		$("#dob").datepicker({
-			changeMonth: true,
-			changeYear: true
-			});
-		$("#dob").datepicker('option', {
-			showAnim: "slideDown",
-			buttonText: "",
-			constrainInput: true, 
-			dateFormat:"mm/dd/yy", 
-			yearRange: "1920:2010"
-			});
-	
-	});
-	$.datepicker.setDefaults({
-		   showOn: 'both',
-		   buttonImageOnly: true,
-		   buttonImage: 'calendar.gif',
-		   buttonText: 'Calendar' });
-			
-</script>
-
 <form action="profileemp_action.php" method="post">
 	<span class="left">First Name</span><input name="fname" type="text" value="<?php echo $Emp->fname;?>"/><br/>
 	<span class="left">Middle Name</span><input name="mname" type="text" value="<?php echo $Emp->mname;?>"/><br/>
@@ -79,7 +56,7 @@ $Emp = new Employee($CurrentUser->userID);
 	?>	
 	</select><br/>
 	<span class="left" style="vertical-align:top;">Job Keywords</span><textarea name="skills"></textarea><br/>
-	<button onclick="employeeValidate()">Update</button>
+	<input type="submit" value="Update"/>
 </form>
 <span class="left">Resume</span>
 <a href="<?php echo $Emp->resumefile; ?>">
