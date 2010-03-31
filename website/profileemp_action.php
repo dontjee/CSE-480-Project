@@ -62,7 +62,6 @@ if(isset($_FILES['resume'])){
 	die;	
 }
 
-//print_rr($_POST);
 
 if (isset($_POST['skills'])){
 	$string = $_POST['skills'];
