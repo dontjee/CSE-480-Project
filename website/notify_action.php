@@ -7,17 +7,16 @@ $Auth->DontAllow(User::$ADMIN);
 
 $user = $Auth->User();
 $jobID = $_GET['jID'];
+$toID = $_GET['userID'];
 
 $job = new Job($jobID);
 
 if($user->type == User::$EMPLOYEE){
 	//This is being sent from an employee, to an employer
 	$fromID = $user->userID;
-	$toID = $job->employerID;
 }else{
-	//This is being sent from an emploer, to an employee
+	//This is being sent from an employer, to an employee
 	$fromID = $job->employerID;
-	$toID = $_GET['userID'];
 }
 
 $DB->Query("INSERT INTO notification

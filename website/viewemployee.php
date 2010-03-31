@@ -11,67 +11,80 @@ $user = $Auth->User();
 $employee = new Employee($_GET['id']);
 
 $Template->Title("Employer User View");
+$Template->CSS("buttons");
+$Template->CSS("form");
+$Template->CSS("viewemployee");
+$Template->JS("viewemployee");
 $Template->Header();
 
 ?>
+	<span class="employee_name"><?php echo $employee->fullName(); ?></span>
+		
 	<span class="row">
-		<b><label class="label">Employee User Name: </label></b>
-		<?php echo $employee->loginID;?>
-
+		<label class="label">User Name: </label>
+		<span><?php echo $employee->loginID;?></span>
 	</span>
-	<br/>
+
 	<span class="row">
-		<b><label class="label">Employee Name: </label></b>
-		 <?php echo $employee->fname;?>&nbsp;<?php echo $employee->mname;?>&nbsp;<?php echo $employee->lname;?>
+		<label class="label">Date Of Birth: </label>
+		<span><?php echo $employee->dob;?></span>
 	</span>
-	<br/>
+
 	<span class="row">
-		<b><label class="label">Employee Date Of Birth: </label></b>
-		<?php echo $employee->dob;?>
-
+		<label class="label">Email: </label>
+		<span><?php echo $employee->email;?></span>
 	</span>
-	<br/>
+
 	<span class="row">
-		<b><label class="label">Email: </label></b>
-		<?php echo $employee->email;?>
-
+		<label class="label">Education Level: </label>
+		<span><?php echo $employee->education;?></span>
 	</span>
-	<br/>
+
 	<span class="row">
-		<b><label class="label">Education Level: </label></b>
-		<?php echo $employee->education;?>
-
+		<label class="label">Resume: </label>
+		<span><?php echo $employee->resume;?></span>
 	</span>
-	<br/>
-	<span class="row">
-		<b><label class="label">Resume: </label></b>
-		<?php echo $employee->resume;?>
 
-	</span>
-	<br/>
+	<!-- Allow employers to notify this employee if they are desired a certain job -->
+	<div class="group">
+		<span>Interested in this person for </span>
+		<select id="notify_job" class="input">
+			<option value="-1">Select a Job</option>
+			<?php 
+			$jobs = $Auth->User()->GetJobs();
+			foreach($jobs as $job){
+				echo "<option value='{$job->jobID}'>{$job->title}</option>";
+			}
+			?>
+		</select>
+		<span id="notify_employee" class="action_button">Notify</span>
+	</div>
+	
 
-
-<?php
-	$comments = $employee->GetComments($user->userID);
-?>
-<table>
-    <tr>
-	    <th style="width:175px;"><b>Comment</th>
-	    <th style="width:150px;"><b>Posted Time </th>
-    </tr>
-<?php foreach($comments as &$comment){ ?>
-	<tr>
-	    <td>
-	    	<?php echo $comment->message; ?>
-	    </td>
-	    <td>
-		<?php echo $comment->postedTime;?>
-	    </td>
-	</tr>
-<?php } ?>
-    </table>
-
-	<p><a href="addcomment.php?uid=<?php echo $employee->userID ?>">Add Comment</a></p>
+	<!-- Allow Employers to comment on this person internally -->
+	<?php
+		$comments = $employee->GetComments($user->userID);
+	?>
+	<div class="group">
+		<table id="comments">
+			<tr>
+				<th style="width:175px;">Comment</th>
+				<th style="width:150px;">Posted Time </th>
+			</tr>
+				<?php foreach($comments as &$comment){ ?>
+					<tr>
+						<td>
+							<?php echo $comment->message; ?>
+						</td>
+						<td>
+						<?php echo $comment->postedTime;?>
+						</td>
+					</tr>
+				<?php } ?>
+			</table>
+		<a href="addcomment.php?uid=<?php echo $employee->userID ?>">Add Comment</a>
+	</div>
+	
 <?php
 $Template->Footer();
 ?>

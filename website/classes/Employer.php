@@ -1,6 +1,10 @@
 <?php
 
+require_once("User.php");
+
 class Employer{
+
+	public $type;
 
 	public $userID;
 	public $loginID;
@@ -16,6 +20,8 @@ class Employer{
 	public $description;
 
 	function __construct() {
+		$this->type = User::$EMPLOYER;
+	
 	    $argv = func_get_args();
 	    switch( func_num_args() ){
 			case 1:
@@ -49,6 +55,31 @@ class Employer{
 			$this->employeeID = -1;
 		}
 
+	}
+	
+	//Get all the jobs from this employer.
+	function GetJobs($includeExpired = false){
+		require_once("Job.php");
+		global $DB;
+		$jobs = Array();
+		
+		if($includeExpired){
+			$result = $DB->Query("	SELECT jobID
+									FROM jobannouncement
+									WHERE employerID = %s",
+									Array($this->userID));
+		}else{
+			//TODO: Make this only show non-expired jobs
+			$result = $DB->Query("	SELECT jobID
+									FROM jobannouncement
+									WHERE employerID = %s",
+									Array($this->userID));
+		}
+		
+		foreach($result as $row)
+			array_push($jobs, new Job($row['jobID']));
+			
+		return $jobs;
 	}
 
 }

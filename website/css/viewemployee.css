@@ -1,0 +1,44 @@
+.employee_name{
+	font-size: 1.4em;
+	margin-bottom: 10px;
+}
+
+.employee_name, .row{
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+.row{
+	margin-top: 4px;
+}
+
+.row>label{
+	display: block;
+	font-weight: bold;
+	width: 200px;
+	float: left;
+}
+
+.row>span{
+	display: block;
+	width: 300px;
+	float: left;
+}
+
+.group{
+	float: left;
+	width: 100%;
+	margin: 10px 0;
+	padding: 20px 0 10px 0;
+	border-top: 1px solid #CCC;
+}
+
+#notify_job{
+	margin-left: 10px;
+	width: 150px;
+}
+
+#comments{
+	margin-top: 10px;
+}

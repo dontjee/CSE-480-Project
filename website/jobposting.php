@@ -10,6 +10,7 @@ $user = $Auth->User();
 $job = new Job($_GET['id']);
 
 $Template->Title(" Job");
+$Template->CSS("buttons");
 $Template->CSS("jobposting");
 $Template->JS("jobposting");
 $Template->Header();
@@ -25,7 +26,7 @@ $Template->Header();
 	<!-- Only Users should see these buttons -->
 	<?php if( $user->type == "Employee" ){ ?>
 	<div id="buttons">
-		<span class="action_button" id="bookmark"">Bookmark Job</span>
+		<span class="action_button" id="bookmark">Bookmark Job</span>
 		<span class="action_button" id="interested">Express Interest</span>
 	</div>
 	<?php } ?>

@@ -1,6 +1,10 @@
 <?php
 
+require_once("User.php");
+
 class Employee{
+
+	public $type;
 
 	public $userID;
 	public $loginID;
@@ -13,6 +17,8 @@ class Employee{
 	public $resumefile;
 
 	function __construct() {
+		$this->type = User::$EMPLOYEE;
+		
 	    $argv = func_get_args();
 	    switch( func_num_args() )
 	    {

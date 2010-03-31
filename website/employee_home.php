@@ -1,46 +1,45 @@
 <?php
 
 require_once("std.php");
+require_once("classes/Notification.php");
 
-$Auth->Restrict(User::$EMPLOYER);
-
+$Auth->Restrict(User::$EMPLOYEE);
 
 $Template->CSS("home");
-$Template->JS("home");
+$Template->JS("panel");
 $Template->Title("Homepage");
 $Template->Header();
 
 ?>
-
-<!-- Bookmarks -->
-<div id="bookmarks" class="panel">
-	<span class="title">Bookmarks</span>
-
-	<?php
-	for($i=0; $i<6; $i++){
-	?>
-		<span class="bookmark">
-			<span class="remove">X</span>
-			<span class="employer">ABC Corp</span>
-			<span class="job">Web Developer</span>
-		</span>
-	<?php } ?>
-	
-</div>
 	
 <!-- Notifications -->
 <div id="notifications" class="panel">
 	<span class="title">Notifications</span>
 
 	<?php
-	for($i=0; $i<6; $i++){
+	$notifs = Notification::GetNotificationsTo($Auth->User()->userID);
+	
+	if($notifs){
+		foreach($notifs as $notif){
+		?>
+			<div class="notification">
+				<span class="message">
+					<?php
+						echo "<a href='user.php?id={$notif->from->userID}'>{$notif->from->name}</a>
+							is interested in you for the job 
+							<a href='jobposting.php?id={$notif->job->jobID}'>{$notif->job->title}</a>";
+					?>
+				</span>
+				<div class="details">
+					<span class="posted"><?php echo PrettyDate($notif->timestamp); ?></span>
+					<a class="delete" href="delete_notification.php?<?php echo $notif->KeyToVars(); ?>">Delete</a>
+				</div>
+			</div>
+		<?php }
+	}else{
+		echo "<span class='none'>No new notifications.</span>";
+	}
 	?>
-		<span class="notification">
-			<span class="remove">X</span>
-			<span class="from">ABC Corp</span>
-			<span class="message">ABC Corp is interested in you</span>
-		</span>
-	<?php } ?>
 	
 </div>
 	

@@ -44,7 +44,7 @@ class Auth{
 	}
 	
 	public function Login($userID){
-		$_SESSION['user'] = new User($userID);
+		$_SESSION['user'] = User::GetUserSubclass($userID);
 	}
 	
 	public function Logout(){

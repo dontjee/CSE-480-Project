@@ -38,7 +38,7 @@ $Template->Header();
 			</div>
 		<?php }
 	}else{
-		echo "No new notifications.";
+		echo "<span class='none'>No new notifications.</span>";
 	}
 	?>
 	
