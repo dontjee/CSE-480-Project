@@ -79,4 +79,94 @@ class Employee{
 		}
 		return $tempCommentArray;
 	}
+	
+	function Get($item){
+		global $DB;
+		switch($item){
+			case('keywords'):
+				$table='employeekeywords';
+				$field='keyword';
+				break;
+			case('categories'):
+				$table='employeecategory';
+				$field='name';
+				break;
+			case('skills'):
+				$table='employeeskills';
+				$field='name';
+				break;
+			default:
+				return false;
+		}
+		
+		$tempArray = $DB->Query("SELECT $field FROM $table WHERE employeeID=$this->userID");
+		
+		$names = array();
+		foreach ($tempArray as $row){
+			$names[] = $row[$field];
+		}
+		
+		return $names; 
+	}
+	
+	
+	function Set($item,$array){
+		global $DB;
+		switch($item){
+			case('keywords'):
+				$table='employeekeywords';
+				$field='keyword';
+				break;
+			case('categories'):
+				$table='employeecategory';
+				$field='name';
+				break;
+			case('skills'):
+				$table='employeeskills';
+				$field='name';
+				break;
+			default:
+				return false;
+		}
+		
+		$array = array_map('trim',$array);
+		$array = array_map('strtolower',$array);
+		$array = array_unique($array);
+		
+		$current = $this->Get($item);
+		$new = array();
+		foreach($array as $a){
+			if ($a != "") $new[] = $a;
+		} 				
+
+
+		// our db has some redundancy, so we have to do a manual check to make sure things 
+		// are not replicated.
+		$add = array_diff($new, $current);
+		$remove = array_diff($current, $new);
+		
+		if (sizeof($remove) > 0){
+			$query = "DELETE FROM $table WHERE employeeID=$this->userID AND (";
+			foreach($remove as $name){
+				$query.= "$field='$name' OR "; 
+			}
+			$query = substr($query,0,-4);
+			$query.= ")";
+			
+			$DB->Query($query);
+		}
+		
+		
+		if (sizeof($add) > 0){
+			$query = "INSERT INTO $table (employeeID, $field) VALUES ";
+			foreach($add as $name){
+				if ($name!="") $query.= "($this->userID, '$name'),"; 
+			}
+			$query = substr($query,0,-1);
+			
+			$DB->Query($query);
+		} 
+	}
+	
+
 }

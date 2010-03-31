@@ -1,7 +1,9 @@
 <?php 
 require_once("std.php");
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 $Auth->Restrict("Employee");
+
+$Emp = new Employee($CurrentUser->userID);
 
 if (sizeof($_POST)==0){
 	header("location: profileemp.php");
@@ -60,6 +62,49 @@ if(isset($_FILES['resume'])){
 	die;	
 }
 
+//print_rr($_POST);
+
+if (isset($_POST['skills'])){
+	$string = $_POST['skills'];
+	$array = array();
+	
+	if ($string != ""){
+		$array = explode(",",$string);
+		$Emp->Set('skills',$array);
+	}
+
+	$_POST['skills']='';
+	unset($_POST['skills']);
+}
+
+
+if (isset($_POST['keywords'])){
+	$string = $_POST['keywords'];
+	$array = array();
+	
+	if ($string != ""){
+		$array = explode(",",$string);
+		$Emp->Set('keywords',$array);
+	}
+
+	$_POST['keywords']='';
+	unset($_POST['keywords']);
+}
+
+
+if (isset($_POST['categories'])){
+	$array = $_POST['categories'];
+	
+	if (sizeof($array) > 0){
+//		$Emp->Set('categories',$array);
+		$Emp->Set('categories',array($array)); // multi-select is only passing one value
+	}
+
+	$_POST['categories']='';
+	unset($_POST['categories']);
+}
+
+
 
 $query ="UPDATE employees SET ";
 foreach($_POST as $key=>$value){
@@ -69,7 +114,7 @@ $query=substr($query,0,-2);
 $query.=" WHERE users_userID=$CurrentUser->userID";
 $DB->Query($query);
 
-echo $query;
+
 
 header("location: profileemp.php");
 

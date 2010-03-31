@@ -42,9 +42,11 @@ class MySQL_DB{
 
 		$result = mysql_query($query, $this->dbh);
 		
+		// debugging code
 		$error=mysql_error($this->dbh);
 		if ($error!=""){
-			echo $error;			
+			echo $query."<br/>";
+			echo $error."<br/>";			
 		}
 		
 		if(!$result){

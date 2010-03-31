@@ -33,6 +33,7 @@ $Template->Header();
 	<span class="left">Email Address</span>
 	<input name="email" type="text" value="<?php echo $Emp->email;?>"/><br/>
 	
+	
 	<span class="left">Education</span>	
 	<select name="education" >
 		<?php 
@@ -45,10 +46,50 @@ $Template->Header();
 			echo "<option$selected>$option</option>";
 		}
 		?>
-	</select>
+	</select><br/>
 	
 	<br/>
+	<span>Please seperate Skills and Keywords with commas.</span><br/>
 	<br/>
+	
+	
+	<span class="left" style="vertical-align:top;">Skills</span>
+	<textarea name="skills"><?php 
+		$array=$Emp->Get('skills');
+		$result="";
+		foreach($array as $name){
+			$result.=ucwords($name).", ";	
+		}
+		echo substr($result,0,-2);
+	?></textarea><br/>
+		
+	
+	<span class="left" style="vertical-align:top;">Job Keywords</span>
+	<textarea name="keywords"><?php 
+		$array=$Emp->Get('keywords');
+		$result="";
+		foreach($array as $name){
+			$result.=ucwords($name).", ";	
+		}
+		echo substr($result,0,-2);
+	?></textarea><br/>
+	<br/>
+	
+	<span class="left" style="vertical-align:top;">Seeking Categories</span>
+	<select name="categories" size="5" multiple="multiple"><?php 
+		$type=array("Admin Support","Sales","Finance","Technology","Healthcare","Human Resources","Hourly/Skilled","Management","Public Service","Education");
+		asort($type);
+		$categories=$Emp->Get('categories');
+		foreach($type as $option){
+			$selected="";
+			if (in_array(strtolower($option), $categories)){
+				$selected=' selected="selected"';
+			}
+			echo "<option$selected>$option</option>";
+		}
+	?></select>
+	<br/>
+
 	<span class="left"></span>
 	<input type="submit" value="Update"/>
 	
@@ -75,25 +116,9 @@ if($Emp->resumefile != ""){
 <br/>
 
 
-<span class="left" style="vertical-align:top;">Skills</span>
-<textarea name="skills"></textarea><br/>
 
-<span class="left" style="vertical-align:top;">Seeking</span>
-<select name="category" size="5" multiple="multiple">
-	<?php 
-	$type=array("Admin Support","Sales","Finance","Technology","Healthcare","Human Resources","Hourly/Skilled","Management","Public Service","Education");
-	foreach($type as $option){
-		$selected="";
-		if ($option==$user['companyType']){
-			$selected=' selected="selected"';
-		}
-		echo "<option$selected>$option</option>";
-	}
-	?>	
-</select>
-<br/>
+
 	
-<span class="left" style="vertical-align:top;">Job Keywords</span>
-<textarea name="skills"></textarea><br/>
+
 
 <?php $Template->Footer();?>
