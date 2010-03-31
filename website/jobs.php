@@ -12,7 +12,7 @@ if(!$Auth->LoggedIn())
 $Template->Title("Jobs");
 $Template->Header();
 
-$jobs = JobRepository::GetJobsForListing();
+$jobs = JobRepository::GetJobsForListing($Auth->User()->userID);
 ?>
 <table>
     <tr>
