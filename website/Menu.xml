@@ -10,7 +10,7 @@
 		<tab src="employee_home.php">Home</tab>
 		<tab src="jobs.php">Jobs</tab>
 		<tab src="bookmarks.php">Bookmarks</tab>
-		<tab src="profile.php">Profile</tab>
+		<tab src="profileemp.php">Profile</tab>
 	</employee>
 	
 	<employer>
@@ -18,7 +18,7 @@
 		<tab src="newjobpost.php">Post New Job</tab>
 		<tab src="jobs.php">Jobs</tab>
 		<tab src="employees.php">Employees</tab>
-		<tab src="profile.php">Profile</tab>
+		<tab src="profileemployer.php">Profile</tab>
 	</employer>
 	
 	<admin>

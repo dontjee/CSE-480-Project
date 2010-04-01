@@ -1,5 +1,5 @@
 function showResumeUpload(){	
-	document.getElementById("chooseResume").style.display="inline-block";
+	$('#chooseResume').css('display','inline-block');
 }
 
 $(function() {
@@ -11,8 +11,9 @@ $(function() {
 		constrainInput: true, 
 		dateFormat:"mm/dd/yy", 
 		yearRange: "1920:2010"
-		});	
+	});	
 });
+
 //$.datepicker.setDefaults({
 //	   showOn: 'both'
 //});
