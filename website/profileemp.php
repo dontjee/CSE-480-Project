@@ -13,8 +13,6 @@ $Template->JS("jquery-ui-1.8.custom.min");
 $Template->Title("Employee Profile");
 $Template->Header();
 
-
-
 ?>
 <form action="profileemp_action.php" method="post">
 
@@ -28,7 +26,7 @@ $Template->Header();
 	<input name="lname" type="text" value="<?php echo $Emp->lname;?>"/><br/>
 	
 	<span class="left">Date of Birth</span>
-	<input id="dob" name="dob" type="text" value="<?php echo $Emp->dob;?>"/><br/>
+	<input id="dob" name="dob" type="text" value="<?php echo str_replace('-','/',$Emp->dob);?>"/><br/>
 	
 	<span class="left">Email Address</span>
 	<input name="email" type="text" value="<?php echo $Emp->email;?>"/><br/>
@@ -76,7 +74,7 @@ $Template->Header();
 	<br/>
 	
 	<span class="left" style="vertical-align:top;">Seeking Categories</span>
-	<select name="categories" size="5" multiple="multiple"><?php 
+	<select name="categories[]" size="5" multiple="multiple"><?php 
 		$type=array("Admin Support","Sales","Finance","Technology","Healthcare","Human Resources","Hourly/Skilled","Management","Public Service","Education");
 		asort($type);
 		$categories=$Emp->Get('categories');

@@ -9,7 +9,6 @@ if (sizeof($_POST)==0){
 	header("location: profileemp.php");
 	die;
 }
-$_POST=array_map("mysql_real_escape_string",$_POST);
 
 // check if they are uploading a resume
 if(isset($_FILES['resume'])){
@@ -39,8 +38,8 @@ if(isset($_FILES['resume'])){
 	}
 	
 	// Delete the old resume
-	$query="SELECT resumefile FROM employees WHERE users_userID=$CurrentUser->userID";
-	$currentResume=$DB->QueryRow($query);
+	$query="SELECT resumefile FROM employees WHERE users_userID=%s";
+	$currentResume=$DB->QueryRow($query, Array($CurrentUser->userID));
 	if ($currentResume){
 		$currentResume=$currentResume['resumefile'];
 		
@@ -54,9 +53,8 @@ if(isset($_FILES['resume'])){
 	
 	
 	// update the database with the new filename
-	$query="UPDATE employees SET resumefile='$uploadfile' WHERE users_userID=$CurrentUser->userID";
-	$DB->Query($query);
-
+	$query="UPDATE employees SET resumefile='%s' WHERE users_userID=%s";
+	$DB->Query($query, Array($uploadfile, $CurrentUser->userID));
 
 	header("location: profileemp.php");
 	die;	
@@ -95,14 +93,13 @@ if (isset($_POST['categories'])){
 	$array = $_POST['categories'];
 	
 	if (sizeof($array) > 0){
-//		$Emp->Set('categories',$array);
-		$Emp->Set('categories',array($array)); // multi-select is only passing one value
+		$Emp->Set('categories',$array);
+//		$Emp->Set('categories',array($array)); // multi-select is only passing one value
 	}
 
 	$_POST['categories']='';
 	unset($_POST['categories']);
 }
-
 
 
 $query ="UPDATE employees SET ";
