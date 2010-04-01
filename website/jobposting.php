@@ -15,6 +15,21 @@ $Template->CSS("jobposting");
 $Template->JS("jobposting");
 $Template->Header();
 
+$categories = $job->Categories();
+$categoryString = "";
+foreach( $categories as &$category )
+{
+   $categoryString = $categoryString . ', ' . $category;
+}
+$categoryString = trim($categoryString, ", ");
+
+$keywords = $job->Keywords();
+$keywordString = "";
+foreach( $keywords as $keyword )
+{
+   $keywordString = $keywordString . ', ' . $keyword;
+}
+$keywordString = trim($keywordString, ", ");
 ?>
 
 	<!-- Loader for ajax stuff -->
@@ -75,24 +90,14 @@ $Template->Header();
 	<span class="row">
 		<label>Category: </label>
 		<span>
-		    <?php 
-		    $categories = $job->Categories();
-		    foreach( $categories as &$category )
-		    {
-		       echo $category . ', ';
-		    }?>
+			<?php echo $categoryString; ?>
 		</span>
 	</span>
 
 	<span class="row">
 		<label>Keyword: </label>
 		<span>
-		    <?php 
-		    $keywords = $job->Keywords();
-		    foreach( $keywords as $keyword )
-		    {
-		       echo $keyword . ', ';
-		    }?>
+			<?php echo $keywordString; ?>
 		</span>
 	</span>
 		

@@ -18,7 +18,8 @@ $jobs = JobRepository::GetJobsForListing($Auth->User()->userID);
     <tr>
 	    <th style="width:175px;"><b>Employer Name</th>
 	    <th style="width:150px;"><b>Job Title</th>
-	    <th><b>Location</th>
+	    <th style="width:150px;"><b>Location</th>
+	    <th><b>Edit Link</th>
     </tr>
 <?php
 foreach( $jobs as &$job )
@@ -32,6 +33,9 @@ foreach( $jobs as &$job )
 	</td>
 	<td>
 	    <?php echo $job->location;?>
+	</td>
+	<td>
+	    <a href="editjobpost.php?id=<?php echo $job->jobID;?>">Edit Job</a>
 	</td>
     </tr>
 <?php } ?>
