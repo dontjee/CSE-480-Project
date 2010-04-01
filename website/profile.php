@@ -1,14 +1,16 @@
 <?php
-
+error_reporting(E_ALL);
 require_once("std.php");
-
-$Template->CSS("profile");
-$Template->Header();
+if ($CurrentUser->type==User::$EMPLOYEE){
+	header("location: profileemp.php");
+}
+else if ($CurrentUser->type==User::$EMPLOYER){
+	header("location: profileemployer.php");
+}
+//else if ($CurrentUser->type ==User::$ADMIN){
+//	
+//}
+else{
+	header("location: index.php");
+}
 ?>
-
-
-Profile Info goes here.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>
-
-
-<?php
-$Template->Footer();

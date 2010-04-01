@@ -13,6 +13,7 @@ $Auth->Logout();
 $loginID = $_POST['loginID'];
 $password = $_POST['password'];
 
+
 $checkID = $DB->QueryRow("SELECT userID FROM users WHERE loginID = '%s' AND passwd = '%s'",
 						array($loginID, $password));
 
