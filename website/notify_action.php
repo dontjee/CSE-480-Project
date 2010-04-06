@@ -11,6 +11,11 @@ $toID = $_GET['userID'];
 
 $job = new Job($jobID);
 
+//If we only pass the job ID, figure out who we're sending it to
+if(!$toID){
+	$toID = $job->employerID;
+}
+
 if($user->type == User::$EMPLOYEE){
 	//This is being sent from an employee, to an employer
 	$fromID = $user->userID;

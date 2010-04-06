@@ -19,7 +19,7 @@ function Bookmark(){
 	StartLoading();
 }
 
-function Bookmarked(){
+function Bookmarked(e){
 	StopLoading();
 	ShowAlert("This job has been succesfully bookmarked.");
 }
@@ -37,7 +37,7 @@ function Interest(){
 	StartLoading();
 }
 
-function InterestShown(){
+function InterestShown(e){
 	StopLoading();
 	ShowAlert("The employer has been notified of your interest.");
 }

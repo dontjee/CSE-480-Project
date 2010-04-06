@@ -1,0 +1,45 @@
+.panel{
+	width: 356px;
+	float: left;
+	height: 210px;
+	border: 1px solid #EFEFEF;
+	margin: 0 10px;
+	-moz-border-radius: 5px 5px 0 0;
+}
+
+.panel>#title{
+	display: block;
+	height: 30px;
+	padding-top: 4px;
+	text-align: center;
+	font-size: 1.2em;
+	background: #EFEFEF;
+	color: #333;
+	-moz-border-radius: 5px 5px 0 0;
+}
+
+.panel>#row{
+	display: block;
+	float: left;
+	margin-top: 4px;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #EFEFEF;
+}
+
+#row>#label, #row>#value{
+	display: block;
+	float: left;
+	width: 173px;
+	padding-left: 5px;
+	font-size: .95em;
+}
+
+#row>#label{
+	text-align: right;
+	font-weight: bold;
+}
+
+#row>#value{
+	height: 20px;
+	overflow: hidden;
+}
