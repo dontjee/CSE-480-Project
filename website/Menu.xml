@@ -18,6 +18,7 @@
 		<tab src="newjobpost.php">Post New Job</tab>
 		<tab src="jobs.php">Jobs</tab>
 		<tab src="employees.php">Employees</tab>
+		<tab src="comments.php">Comments</tab>
 		<tab src="profileemployer.php">Profile</tab>
 	</employer>
 	
