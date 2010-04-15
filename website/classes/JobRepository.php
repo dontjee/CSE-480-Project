@@ -20,11 +20,18 @@ class JobRepository{
 		return $tempJobsArray;
 	}
 
-	public static function GetJobsForListing($userIdMakingCall){
+	public static function GetJobsForListing($userIdMakingCall, $sortByPostedDate){
 		global $DB;
 		$tempJobsArray = array();
 	
-		$jobsResult = $DB->Query("SELECT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education FROM jobannouncement AS ja INNER JOIN employers AS er ON er.users_userID = ja.employerID LEFT JOIN bookmarks AS b ON ja.jobID = b.jobID WHERE b.employeeID IS NULL OR b.employeeID != %s", array($userIdMakingCall));
+		if( $sortByPostedDate )
+		{
+		    $jobsResult = $DB->Query("SELECT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education FROM jobannouncement AS ja INNER JOIN employers AS er ON er.users_userID = ja.employerID LEFT JOIN bookmarks AS b ON ja.jobID = b.jobID WHERE b.employeeID IS NULL OR b.employeeID != %s ORDER BY posted", array($userIdMakingCall));
+		}
+		else
+		{
+		    $jobsResult = $DB->Query("SELECT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education FROM jobannouncement AS ja INNER JOIN employers AS er ON er.users_userID = ja.employerID LEFT JOIN bookmarks AS b ON ja.jobID = b.jobID WHERE b.employeeID IS NULL OR b.employeeID != %s ORDER BY title", array($userIdMakingCall));
+		}
 
 		if($jobsResult)
 		{

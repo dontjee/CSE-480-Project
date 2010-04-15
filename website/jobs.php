@@ -12,8 +12,16 @@ if(!$Auth->LoggedIn())
 $Template->Title("Jobs");
 $Template->Header();
 
-$jobs = JobRepository::GetJobsForListing($Auth->User()->userID);
+$sortByPosted = false;
+if( $_GET["sortByPosted"] == "1" )
+{
+    $sortByPosted = true;
+}
+$jobs = JobRepository::GetJobsForListing($Auth->User()->userID, $sortByPosted);
 ?>
+<p>Sort By: 
+    <a href="jobs.php">Title</a> | <a href="jobs.php?sortByPosted=1">Date Posted</a>
+</p>
 <table>
     <tr>
 	    <th style="width:175px;"><b>Employer Name</th>
