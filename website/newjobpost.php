@@ -21,7 +21,7 @@ $Template->Header();
 	<br/>
 	<span class="row">
 		<label class="label" for="description">Description</label>
-		<textarea name="description" rows="2" cols="20"></textarea>
+		<textarea class="field textarea" name="description" rows="2" cols="20"></textarea>
 	</span>
 	<br/>
 	
@@ -39,7 +39,7 @@ $Template->Header();
 	
 	<span class="row">
 		<label class="label" for="jobType">Job Type</label>
-		<select name="jobType" class="field">
+		<select class="field select" name="jobType" class="field">
 			<option value="Full Time">Full Time</option>
 			<option value="Temporary">Temporary</option>
 			<option value="Contract">Contract</option>
@@ -49,7 +49,7 @@ $Template->Header();
 
 	<span class="row">
 		<label class="label" for="education">Education Requirement</label>
-		<select name="education" class="field">
+		<select class="field select" name="education" class="field">
 			<option value="High School">High School</option>
 			<option value="College">College</option>
 			<option value="Postgraduate">Postgraduate</option>

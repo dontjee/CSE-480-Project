@@ -39,7 +39,7 @@ $Employer = new Employer($CurrentUser->userID);
 	<input class="field input" name="website" type="text" value="<?php echo $Employer->website;?>" /><br/>
 	
 	<label class="label" for="companyType">Type of Company</label>
-	<select class="field input" name="companyType">
+	<select class="field select" name="companyType">
 		<?php 
 		$type=array("Education","Retail","Finance","Services","Telecommunication","Healthcare","Marketing","Technology","Others");
 		foreach($type as $option){

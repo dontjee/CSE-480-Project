@@ -34,7 +34,7 @@ $Template->Header();
 	
 	
 	<label class="label" for="education">Education</label>	
-	<select class="field input" name="education" >
+	<select class="field select" name="education" >
 		<?php 
 		$education=array("High School","College","PostGraduate");
 		foreach($education as $option){
@@ -52,7 +52,7 @@ $Template->Header();
 	<br/>
 	
 	
-	<label class="label" for="skills" style="vertical-align:top;">Skills</label>
+	<label class="label" for="skills" style="vertical-align:top;">Your Skills</label>
 	<textarea class="field textarea"name="skills"><?php 
 		$array=$Emp->Get('skills');
 		$result="";
@@ -75,7 +75,7 @@ $Template->Header();
 	<br/>
 	
 	<label class="label" for="categories" style="vertical-align:top;">Seeking Categories</label>
-	<select class="field select" name="categories[]" size="5" multiple="multiple"><?php 
+	<select class="field select_multi" name="categories[]" size="5" multiple="multiple"><?php 
 		$type=array("Admin Support","Sales","Finance","Technology","Healthcare","Human Resources","Hourly/Skilled","Management","Public Service","Education");
 		asort($type);
 		$categories=$Emp->Get('categories');

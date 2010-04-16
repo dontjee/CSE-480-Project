@@ -18,13 +18,21 @@
 
 .textarea {
 	height: 59px;
-	width: 200px;
+	width: 197px;
 	border: 1px solid #999;
 	background: #F8F8F8;
 	padding: 3px;
 }
 
 .select {
+	width: 205px;
+	height: 26px;
+	border: 1px solid #999;
+	background: #F8F8F8;
+	padding: 0 0 0 3px;
+}
+
+.select_multi {
 	width: 205px;
 	border: 1px solid #999;
 	background: #F8F8F8;
