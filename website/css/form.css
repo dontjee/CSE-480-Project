@@ -1,5 +1,6 @@
 .input{
 	height: 26px;
+	width: 200px;
 	border: 1px solid #999;
 	background: #F8F8F8;
 	padding: 0 0 0 3px;
@@ -8,4 +9,24 @@
 .input:focus{
 	border: 1px solid #333;
 	background: #FFF;
+}
+
+.label {
+	width:150px;
+	display:inline-block;
+}
+
+.textarea {
+	height: 59px;
+	width: 200px;
+	border: 1px solid #999;
+	background: #F8F8F8;
+	padding: 3px;
+}
+
+.select {
+	width: 205px;
+	border: 1px solid #999;
+	background: #F8F8F8;
+	padding: 0 0 0 3px;
 }

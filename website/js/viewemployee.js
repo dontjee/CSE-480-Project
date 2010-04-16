@@ -12,6 +12,7 @@ function Notify(){
 	
 	if(jobID == -1){
 		alert("Please Select which job you would like to notify this user about.");
+		return;
 	}
 
 	$.ajax({

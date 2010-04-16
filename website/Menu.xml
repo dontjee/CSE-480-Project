@@ -4,6 +4,7 @@
 	<none>
 		<tab src="index.php">Home</tab>
 		<tab src="signup.php">Sign Up</tab>
+		<tab src="login.php">Login</tab>
 	</none>
 	
 	<employee>

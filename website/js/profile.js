@@ -1,5 +1,22 @@
+$(document).ready(InitProfile);
+
+function InitProfile(){
+	$("#update").click(Update);
+	if($("#resume_upload")!=null){
+		$("#resume_upload").click(Upload);
+	}
+}
+
+function Update(){
+	$("#profile").submit();
+}
+function Upload(){
+	$("#resume").submit();
+}
+
 function showResumeUpload(){	
-	$('#chooseResume').css('display','inline-block');
+	$("#currrent_resume").css('display','none');
+	$('#choose_resume').css('display','inline-block');
 }
 
 $(function() {
