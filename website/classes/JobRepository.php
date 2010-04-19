@@ -47,7 +47,7 @@ class JobRepository{
 	public static function SearchJobs($searchArray, $sortByPostedDate){
 		global $DB;
 		
-		$query = "SELECT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education 
+		$query = "SELECT DISTINCT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education 
 				FROM jobannouncement AS ja 
 				INNER JOIN jobcategory AS jc ON ja.jobID = jc.jobID 
 				INNER JOIN jobkeywords AS jk ON ja.jobID = jk.jobID 
