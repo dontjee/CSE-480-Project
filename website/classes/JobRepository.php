@@ -44,14 +44,14 @@ class JobRepository{
 		return $tempJobsArray;
 	}
 	
-	public static function SearchJobs($searchArray, $sortByPostedDate){
+	public static function SearchJobs($searchArray=array(), $sortByPostedDate=false){
 		global $DB;
 		
 		$query = "SELECT DISTINCT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education 
 				FROM jobannouncement AS ja 
-				INNER JOIN jobcategory AS jc ON ja.jobID = jc.jobID 
-				INNER JOIN jobkeywords AS jk ON ja.jobID = jk.jobID 
-				INNER JOIN employers AS er ON er.users_userID = ja.employerID 
+				LEFT JOIN jobcategory AS jc ON ja.jobID = jc.jobID 
+				LEFT JOIN jobkeywords AS jk ON ja.jobID = jk.jobID 
+				LEFT JOIN employers AS er ON er.users_userID = ja.employerID 
 				";
 		
 		$args = array();

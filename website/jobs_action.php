@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
 require_once("std.php");
+if(!$Auth->LoggedIn())	$Auth->SendHome();
+
 require_once("classes/Job.php");
 require_once("classes/JobRepository.php");
 

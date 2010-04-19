@@ -1,10 +1,8 @@
 <?php
 require_once("std.php");
 
-if(!$Auth->LoggedIn())
-{
-	header("location:index.php");
-}
+if(!$Auth->LoggedIn())	$Auth->SendHome();
+
 
 $Template->Title("Jobs");
 $Template->CSS("form");
