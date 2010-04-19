@@ -39,11 +39,13 @@ class MySQL_DB{
 	}
 
 	function Query($query, $values=array()){
+		
 		foreach($values as $value){
 			$value = mysql_escape_string($value);
 		}
 		
 		$query = vsprintf($query, $values);
+		
 
 		$result = mysql_query($query, $this->dbh);
 		

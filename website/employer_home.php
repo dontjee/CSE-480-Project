@@ -26,7 +26,7 @@ $Template->Header();
 			<div class="notification">
 				<span class="message">
 					<?php
-						echo "<a href='user.php?id={$notif->from->userID}'>{$notif->from->FullName()}</a>
+						echo "<a href='viewemployee.php?id={$notif->from->userID}'>{$notif->from->FullName()}</a>
 							has expressed interest in the job
 							<a href='jobposting.php?id={$notif->job->jobID}'>{$notif->job->title}</a>";
 					?>

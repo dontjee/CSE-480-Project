@@ -1,8 +1,5 @@
 <?php
-
 require_once("std.php");
-require_once("classes/Job.php");
-require_once("classes/JobRepository.php");
 
 if(!$Auth->LoggedIn())
 {
@@ -10,45 +7,38 @@ if(!$Auth->LoggedIn())
 }
 
 $Template->Title("Jobs");
+$Template->CSS("form");
+$Template->CSS("buttons");
+$Template->JS("jobs");
 $Template->Header();
-
-$sortByPosted = false;
-if( $_GET["sortByPosted"] == "1" )
-{
-    $sortByPosted = true;
-}
-$jobs = JobRepository::GetJobsForListing($Auth->User()->userID, $sortByPosted);
+if ($Auth->User()->type==User::$EMPLOYER){
+	include("jobs_action.php");
+}else{
 ?>
-<p>Sort By: 
-    <a href="jobs.php">Title</a> | <a href="jobs.php?sortByPosted=1">Date Posted</a>
-</p>
-<table>
-    <tr>
-	    <th style="width:175px;"><b>Employer Name</th>
-	    <th style="width:150px;"><b>Job Title</th>
-	    <th style="width:150px;"><b>Location</th>
-	    <th><b>Edit Link</th>
-    </tr>
-<?php
-foreach( $jobs as &$job )
-{?>
-    <tr>
-	<td>
-	    <?php echo $job->employer->name;?>
-	</td>
-	<td>
-	    <a href="jobposting.php?id=<?php echo $job->jobID;?>" style="color:#CCC; text-decoration:underline;"><?php echo $job->title;?></a>
-	</td>
-	<td>
-	    <?php echo $job->location;?>
-	</td>
-	<td>
-	    <a href="editjobpost.php?id=<?php echo $job->jobID;?>">Edit Job</a>
-	</td>
-    </tr>
-<?php } ?>
-</table>
+
+<label class="label" for="title">Job Title</label>
+<input class="field input" name="title" id="title" type="text" /><br/>
+
+<label class="label" for="jobcategory">Job Category</label>
+<input class="field input" name="jobcategory" id="jobcategory" type="text" /><br/>
+
+<label class="label" for="jobType">Job Type</label>
+<input class="field input" name="jobType" id="jobType" type="text" /><br/>
+
+<label class="label" for="education">Education Level</label>
+<input class="field input" name="education" id="education" type="text" /><br/>
+
+<label class="label" for="jobskills">Skills</label>
+<input class="field input" name="jobskills" id="jobskills" type="text" /><br/>
+
+<br/>
+<span id="search_button" class="action_button">Search</span>
+<br/>
+<br/>
+
+<div id="jobs"></div>
 
 <?php
+}
 $Template->Footer();
 ?>
