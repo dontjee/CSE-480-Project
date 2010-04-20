@@ -44,6 +44,13 @@ $keywordString = trim($keywordString, ", ");
 		<span class="action_button" id="bookmark">Bookmark Job</span>
 		<span class="action_button" id="interested">Express Interest</span>
 	</div>
+	<?php } else { ?>
+	<!-- Only Employers should see these buttons -->
+	<div id="buttons">
+		<span class="action_button" id="search_employees">Find Prospective Employees</span>
+		<input type="hidden" id="jobID" value="<?php echo $job->jobID;?>" />
+	</div>
+	
 	<?php } ?>
 
 	<!-- Everyone sees this -->

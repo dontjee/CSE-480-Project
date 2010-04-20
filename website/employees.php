@@ -11,7 +11,6 @@ $Template->JS("employees");
 $Template->Header();
 
 
-// education level, skill set, job categories, and keywords
 ?>
 
 <label class="label" for="empcategory">Seeking Category</label>
@@ -31,7 +30,10 @@ $Template->Header();
 <br/>
 <br/>
 
-<div id="employees"></div>
+<div id="employees"><?php 
+	if (isset($_GET['jobID']) && $_GET['jobID']!=""){
+		include("employees_action.php");
+	}?></div>
 <?php
 $Template->Footer();
 ?>

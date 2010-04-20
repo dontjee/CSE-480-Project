@@ -4,6 +4,7 @@ $(document).ready(JP_Init);
 function JP_Init(){
 	$('#bookmark').click(Bookmark);
 	$('#interested').click(Interest);
+	$('#search_employees').click(SearchEmployees);
 }
 
 //Bookmark this notification
@@ -52,4 +53,8 @@ function StopLoading(){
 
 function ShowAlert(alert){
 	$("#alert").html(alert).fadeIn('slow').animate({opacity: 1.0}, 2000).fadeOut('slow');
+}
+
+function SearchEmployees(){
+	window.location="employees.php?jobID="+$('#jobID')[0].value;
 }

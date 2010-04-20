@@ -15,6 +15,7 @@ class Employee{
 	public $email;
 	public $education;
 	public $resumefile;
+	public $rank;
 
 	function __construct() {
 		$this->type = User::$EMPLOYEE;
