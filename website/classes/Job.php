@@ -14,6 +14,7 @@ class Job{
 	public $jobType;
 	public $description;
 	public $education;
+	public $rank;
 
 	//Useful values
 	public $employer;
@@ -107,5 +108,24 @@ class Job{
 		}
 
 		return $categories;
+	}
+	
+	function Skills(){
+		global $DB;
+	
+		$check = $DB->Query("SELECT * 
+					FROM jobskills
+					WHERE jobID = %s",
+					array($this->jobID));
+
+		$skills = array();
+		if($check){
+			foreach( $check as &$skill )
+			{
+				array_push( $skills, $skill['name'] );
+			}
+		}
+
+		return $skills;
 	}
 }

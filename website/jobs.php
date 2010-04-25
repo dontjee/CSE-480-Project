@@ -14,14 +14,17 @@ if ($Auth->User()->type==User::$EMPLOYER){
 }else{
 ?>
 
-<label class="label" for="title">Job Title</label>
+<label class="label" for="title">Title</label>
 <input class="field input" name="title" id="title" type="text" /><br/>
 
-<label class="label" for="jobcategory">Job Category</label>
+<label class="label" for="jobcategory">Category</label>
 <input class="field input" name="jobcategory" id="jobcategory" type="text" /><br/>
 
-<label class="label" for="jobType">Job Type</label>
+<label class="label" for="jobType">Type/Description</label>
 <input class="field input" name="jobType" id="jobType" type="text" /><br/>
+
+<label class="label" for="jobkeywords">Keywords</label>
+<input class="field input" name="jobkeywords" id="jobkeywords" type="text" /><br/>
 
 <label class="label" for="education">Education Level</label>
 <input class="field input" name="education" id="education" type="text" /><br/>

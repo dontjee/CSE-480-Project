@@ -12,8 +12,10 @@ if( isset($_GET["sortByPosted"]) && $_GET["sortByPosted"] == "1" ){
 
 if ($Auth->User()->type==User::$EMPLOYER){
 	$jobs = JobRepository::GetJobsForListing($Auth->User()->userID, $sortByPosted);
-}else{
+}else if ($_POST==array()){
 	$jobs = JobRepository::SearchJobs($_POST, $sortByPosted);
+}else{
+	$jobs = JobRepository::SearchRankedJobs($_POST);
 }
 
 
@@ -30,6 +32,7 @@ if ($Auth->User()->type==User::$EMPLOYER){
 	    <th style="width:175px;"><b>Employer Name</th>
 	    <th style="width:150px;"><b>Job Title</th>
 	    <th style="width:150px;"><b>Location</th>
+	    <th style="width:150px;"><b>Match Rank (0-5)</th>	
 		<?php if ($Auth->User()->type==User::$EMPLOYER){// user == employer and posted the job ?>
 	    <th><b>Edit Link</th>
 		<?php } ?>
@@ -46,6 +49,9 @@ foreach( $jobs as &$job )
 	</td>
 	<td>
 	    <?php echo $job->location;?>
+	</td>
+	<td>
+	    <?php echo $job->rank;?>
 	</td>
 	<?php if ($Auth->User()->type==User::$EMPLOYER){// user == employer and posted the job ?>
 	<td>

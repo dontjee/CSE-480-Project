@@ -16,20 +16,13 @@ $Template->JS("jobposting");
 $Template->Header();
 
 $categories = $job->Categories();
-$categoryString = "";
-foreach( $categories as &$category )
-{
-   $categoryString = $categoryString . ', ' . $category;
-}
-$categoryString = trim($categoryString, ", ");
+$categoryString = implode(", ",array_map('ucfirst',$categories));
 
 $keywords = $job->Keywords();
-$keywordString = "";
-foreach( $keywords as $keyword )
-{
-   $keywordString = $keywordString . ', ' . $keyword;
-}
-$keywordString = trim($keywordString, ", ");
+$keywordString = implode(", ",array_map('ucfirst',$keywords));
+
+$skills = $job->Skills();
+$skillString = implode(", ",array_map('ucfirst',$skills));
 ?>
 
 	<!-- Loader for ajax stuff -->
@@ -105,6 +98,13 @@ $keywordString = trim($keywordString, ", ");
 		<label>Keyword: </label>
 		<span>
 			<?php echo $keywordString; ?>
+		</span>
+	</span>
+	
+		<span class="row">
+		<label>Skills: </label>
+		<span>
+			<?php echo $skillString; ?>
 		</span>
 	</span>
 		

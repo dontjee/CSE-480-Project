@@ -118,68 +118,133 @@ class JobRepository{
 	
 	
 	
-	// public static function GetJobsForEmployee($searchArray=array(), $employeeid){
-		// global $DB;
-		
-		
-
-		
-		// $args = array();
-
-		// if ($searchArray!=array()){
-			// $query.="WHERE ";
-		// }
-		
-		// if( isset($searchArray["title"]) && $searchArray['title']!=""){
-			// $query.="ja.title LIKE '%%%s%%' OR ";
-			// array_push($args,$searchArray['title']);
-		// }
-		// if (isset($searchArray['jobType']) && $searchArray['jobType']!=""){
-			// $query.="ja.jobType LIKE '%%%s%%' OR ";
-			// $args[]=$searchArray['jobType'];
-		// }
-		// if (isset($searchArray['education']) && $searchArray['education']!=""){
-			// $query.="ja.education LIKE '%%%s%%' OR ";
-			// $args[]=$searchArray['education'];
-		// }
-		// if (isset($searchArray['jobskills']) && $searchArray['jobskills']!=""){
-			// $fields=explode(' ',str_replace(',',' ',$searchArray['jobskills']));
-			// foreach($fields as $field){
-				// if ($field=="") continue;
-				
-				// $query.="jc.name LIKE '%%%s%%' OR ";
-				// $args[]=$field;				
-			// }		
-		// }
-		// if (isset($searchArray['jobcategory']) && $searchArray['jobcategory']!=""){
-			// $fields=explode(' ',str_replace(',',' ',$searchArray['jobcategory']));
-			// foreach($fields as $field){
-				// if ($field=="") continue;
-				
-				// $query.="jk.name LIKE '%%%s%%' OR ";
-				// $args[]=$field;
-			// }			
-		// }
-		
-		// if ($searchArray!=array()){
-			// $query=substr($query,0,-3);
-		// }
-				
+	public static function SearchRankedJobs($searchArray=array()){
+		global $DB;
+		$ranking = array();
 	
-		// $jobsResult = $DB->Query($query, $args);
+//		print_rr($searchArray);
 		
 		
-		// $tempJobsArray = array();
-		// if($jobsResult){
-		    // foreach( $jobsResult as &$job ){
-				// $job = new Job($job['jobID'], $job['name'], $job['title'], $job['posted'], $job['closingDate'], $job['location'], $job['jobType'], $job['description'], $job['education'], '', '');
-				// array_push($tempJobsArray, $job);
-		    // }
-		// }
-
-		// return $tempJobsArray;
-	// }
+		// match job title
+		if( isset($searchArray["title"]) && $searchArray['title']!=""){
+			$jobids=$DB->Query("SELECT DISTINCT jobID FROM jobannouncement WHERE title LIKE '%%%s%%'", array($searchArray['title']));
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=1;
+			}
+		}
+			
+		
+		// match education
+		// note that educational level must match, not exceed
+		if (isset($searchArray['education']) && $searchArray['education']!=""){
+			$jobids=$DB->Query("SELECT DISTINCT jobID FROM jobannouncement WHERE education LIKE '%%%s%%'", array($searchArray['education']));
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=1;
+			}
+		}
+		
+		
+		// match skills
+		if (isset($searchArray['jobskills']) && $searchArray['jobskills']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['jobskills']));
+			$query="SELECT DISTINCT jobID FROM jobskills WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="name LIKE '%%%s%%' OR ";
+				$args[]=$field;
+			}
+			$query=substr($query,0,-3);
+			
+			$jobids=$DB->Query($query, $args);
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=1;
+			}
+		}
+		
+		
+		// match categories
+		if (isset($searchArray['jobcategory']) && $searchArray['jobcategory']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['jobcategory']));
+			$query="SELECT DISTINCT jobID FROM jobcategory WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="name LIKE '%%%s%%' OR ";
+				$args[]=$field;
+			}
+			$query=substr($query,0,-3);
+			
+			$jobids=$DB->Query($query, $args);
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=1;
+			}
+		}
+		
+		// match job type and description
+		if( isset($searchArray["jobType"]) && $searchArray['jobType']!=""){
+			$jobids=$DB->Query("SELECT DISTINCT jobID FROM jobannouncement WHERE title LIKE '%%%s%%'", array($searchArray['jobType']));
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=0.5;
+			}
+		}
 	
+		
+		// match job type and description
+		if (isset($searchArray['jobType']) && $searchArray['jobType']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['jobType']));
+			$query="SELECT DISTINCT jobID FROM jobannouncement WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="jobType LIKE '%%%s%%' OR description LIKE '%%%s%%' OR ";
+				$args[]=$field;
+				$args[]=$field;	
+			}
+			$query=substr($query,0,-3);
+			
+			$jobids=$DB->Query($query, $args);
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=0.5;
+			}
+		}
+		
+		
+		// match keywords
+		if (isset($searchArray['jobkeywords']) && $searchArray['jobkeywords']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['jobkeywords']));
+			$query="SELECT DISTINCT jobID FROM jobkeywords WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="name LIKE '%%%s%%' OR ";
+				$args[]=$field;
+			}
+			$query=substr($query,0,-3);
+			
+			$jobids=$DB->Query($query, $args);
+			foreach($jobids as $jobid){
+				$ranking[$jobid['jobID']]+=0.5;
+			}
+		}
+		
+
+		
+//		print_rr($ranking);
+		// sort rankings
+		if(!asort(&$ranking)){
+			echo "Sort Error<br/>";
+			return;
+		}
+		$ranking = array_reverse($ranking, true);
+		
+		// get the employees
+		$tempJobArray=array();
+		foreach($ranking as $jobid=>$rank){
+			$job = new Job($jobid);
+			$job->rank = $rank;
+			$tempJobArray[]=$job;
+		}		
+		
+		return $tempJobArray;
+	
+	}	
 	
 	
 	
