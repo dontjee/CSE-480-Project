@@ -50,6 +50,7 @@ class MySQL_DB{
 		$result = mysql_query($query, $this->dbh);
 		
 		// debugging code
+//		echo $query."<br>";
 		$error=mysql_error($this->dbh);
 		if ($error!=""){
 			echo $query."<br/>";

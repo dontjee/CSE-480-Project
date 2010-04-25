@@ -7,8 +7,10 @@ require_once("classes/Employee.php");
 require_once("classes/EmployeeRepository.php");
 if (isset($_GET['jobID']) && $_GET['jobID']!="") {
 	$employees = EmployeeRepository::GetEmployeesForJob($_GET['jobID']);
-}else{
+}else if ($_POST==array()){
 	$employees = EmployeeRepository::GetEmployees($_POST);
+}else{
+	$employees = EmployeeRepository::GetRankedEmployees($_POST);
 }
 
 ?>

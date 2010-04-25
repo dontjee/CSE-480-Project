@@ -22,7 +22,7 @@ $Template->Header();
 		
 	<span class="row">
 		<label class="label">User Name: </label>
-		<span><?php echo $employee->loginID;?></span>
+		<span><?php echo $employee->fullName();?></span>
 	</span>
 
 	<span class="row">
@@ -39,7 +39,35 @@ $Template->Header();
 		<label class="label">Education Level: </label>
 		<span><?php echo $employee->education;?></span>
 	</span>
-
+	
+	<span class="row">
+		<label class="label">Skills: </label>
+		<span><?php
+			$results = $employee->Get('skills');
+			$results = array_map('ucfirst',$results);
+			echo implode(', ',$results); 
+		?></span>
+	</span>
+	
+	<span class="row">
+		<label class="label">Keywords: </label>
+		<span><?php
+			$results = $employee->Get('keywords');
+			$results = array_map('ucfirst',$results);
+			echo implode(', ',$results); 
+		?></span>
+	</span>
+	
+	<span class="row">
+		<label class="label">Categories: </label>
+		<span><?php
+			$results = $employee->Get('categories');
+			$results = array_map('ucfirst',$results);
+			echo implode(', ',$results); 
+		?></span>
+	</span>
+	
+	
 	<span class="row">
 		<label class="label">Resume: </label>
 		<span><?php echo $employee->resume;?></span>

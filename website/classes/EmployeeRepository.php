@@ -198,5 +198,96 @@ class EmployeeRepository{
 		
 		return $tempEmployeeArray;
 	}
+	
+	
+	public static function GetRankedEmployees($searchArray=array()){
+		global $DB;
+		$ranking = array();
+	
+//		print_rr($searchArray);
+		
+		// match education
+		// note that educational level must match, not exceed
+		if (isset($searchArray['education']) && $searchArray['education']!=""){
+			$userids=$DB->Query("SELECT DISTINCT users_userID FROM employees WHERE education LIKE '%s'", array($searchArray['education']));
+			foreach($userids as $userid){
+				$ranking[$userid['users_userID']]+=1;
+			}
+		}
+		
+		
+		// match skills
+		if (isset($searchArray['empskills']) && $searchArray['empskills']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['empskills']));
+			$query="SELECT DISTINCT employeeID FROM employeeskills WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="name LIKE '%%%s%%' OR ";
+				$args[]=$field;
+			}
+			$query=substr($query,0,-3);
+			
+			$userids=$DB->Query($query, $args);
+			foreach($userids as $userid){
+				$ranking[$userid['employeeID']]+=1;
+			}
+		}
+		
+		
+		// match categories
+		if (isset($searchArray['empcategory']) && $searchArray['empcategory']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['empcategory']));
+			$query="SELECT DISTINCT employeeID FROM employeecategory WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="name LIKE '%%%s%%' OR ";
+				$args[]=$field;
+			}
+			$query=substr($query,0,-3);
+			
+			$userids=$DB->Query($query, $args);
+			foreach($userids as $userid){
+				$ranking[$userid['employeeID']]+=1;
+			}
+		}
+		
+
+		// match keywords
+		if (isset($searchArray['empkeywords']) && $searchArray['empkeywords']!=""){
+			$fields=explode(' ',str_replace(',',' ',$searchArray['empkeywords']));
+			$query="SELECT DISTINCT employeeID FROM employeekeywords WHERE ";
+			$args=array();
+			foreach ($fields as $field){
+				$query.="keyword LIKE '%%%s%%' OR ";
+				$args[]=$field;
+			}
+			$query=substr($query,0,-3);
+			
+			$userids=$DB->Query($query, $args);
+			foreach($userids as $userid){
+				$ranking[$userid['employeeID']]+=1;
+			}
+
+		}
+		
+//		print_rr($ranking);
+		// sort rankings
+		if(!asort(&$ranking)){
+			echo "Sort Error<br/>";
+			return;
+		}
+		$ranking = array_reverse($ranking, true);
+		
+		// get the employees
+		$tempEmployeeArray=array();
+		foreach($ranking as $userid=>$rank){
+			$employee = new Employee($userid);
+			$employee->rank = $rank;
+			$tempEmployeeArray[]=$employee;
+		}		
+		
+		return $tempEmployeeArray;
+	
+	}	
 }
 ?>
