@@ -179,13 +179,7 @@ class JobRepository{
 			}
 		}
 		
-		// match job type and description
-		if( isset($searchArray["jobType"]) && $searchArray['jobType']!=""){
-			$jobids=$DB->Query("SELECT DISTINCT jobID FROM jobannouncement WHERE title LIKE '%%%s%%'", array($searchArray['jobType']));
-			foreach($jobids as $jobid){
-				$ranking[$jobid['jobID']]+=0.5;
-			}
-		}
+
 	
 		
 		// match job type and description
