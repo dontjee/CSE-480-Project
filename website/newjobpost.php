@@ -68,6 +68,12 @@ $Template->Header();
 		<input name="keyword" class="field input" type="text"/>
 	</span>
 	<br/>
+	
+	<span class="row">
+		<label class="label" for="skill">Job Skills (separated by commas)</label>
+		<input name="skill" class="field input" type="text"/>
+	</span>
+	<br/>
 	<input id="submit" type="submit" value="Create" />
 	
 </form>
