@@ -31,19 +31,17 @@ $skillString = implode(", ",array_map('ucfirst',$skills));
 	<!-- Alert after ajax stuff happens -->
 	<span id="alert" class="hidden">Alert will be shown here!</span>
 
-	<!-- Only Users should see these buttons -->
-	<?php if( $user->type == "Employee" ){ ?>
-	<div id="buttons">
-		<span class="action_button" id="bookmark">Bookmark Job</span>
-		<span class="action_button" id="interested">Express Interest</span>
-	</div>
-	<?php } else { ?>
-	<!-- Only Employers should see these buttons -->
-	<div id="buttons">
-		<span class="action_button" id="search_employees">Find Prospective Employees</span>
-		<input type="hidden" id="jobID" value="<?php echo $job->jobID;?>" />
-	</div>
-	
+	<?php if( $user->type == User::$EMPLOYEE ){ ?>
+		<!-- Only Prospective Employees should see these buttons -->
+		<div id="buttons">
+			<span class="action_button" id="bookmark">Bookmark Job</span>
+			<span class="action_button" id="interested">Express Interest</span>
+		</div>
+	<?php }else if($user->type == User::$ADMIN){ ?>
+		<!-- Only admin should see this button -->
+		<div id="buttons">
+			<span class="action_button" id="delete_job">Delete Job Posting</span>
+		</div>
 	<?php } ?>
 
 	<!-- Everyone sees this -->

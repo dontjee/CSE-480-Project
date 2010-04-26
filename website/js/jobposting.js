@@ -5,6 +5,7 @@ function JP_Init(){
 	$('#bookmark').click(Bookmark);
 	$('#interested').click(Interest);
 	$('#search_employees').click(SearchEmployees);
+	$('#delete_job').click(DeleteJob);
 }
 
 //Bookmark this notification
@@ -41,6 +42,24 @@ function Interest(){
 function InterestShown(e){
 	StopLoading();
 	ShowAlert("The employer has been notified of your interest.");
+}
+
+function DeleteJob(){
+	var id = GetParam("id");
+	
+	$.ajax({
+		method: "GET",
+		url: "delete_job_action.php?jobID=" + id,
+		success: JobDeleted
+	});
+	
+	StartLoading();
+}
+
+function JobDeleted(){
+	StopLoading();
+	alert("The job has been deleted.");
+	window.location = "jobs.php";
 }
 
 function StartLoading(){

@@ -25,6 +25,8 @@
 	
 	<admin>
 		<tab src="index.php">Home</tab>
+		<tab src="users.php">Users</tab>
+		<tab src="jobs.php">Jobs</tab>
 		<tab src="stats.php">Statistics</tab>
 	</admin>
 	

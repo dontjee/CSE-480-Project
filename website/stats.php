@@ -2,6 +2,8 @@
 
 require_once("std.php");
 
+$Auth->Restrict(User::$ADMIN);
+
 $Template->CSS("stats");
 $Template->Title("Website Statistics");
 $Template->Header();

@@ -1,3 +1,10 @@
+#buttons{
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 10px auto 30px auto;
+}
+
 .action_button{
 	border: 1px solid #999;
 	margin: 0 10px;
