@@ -9,7 +9,7 @@ $Template->Title("Users");
 $Template->Header();
 
 $employers = $DB->Query("SELECT * FROM users RIGHT JOIN employers ON employers.users_userID = users.userID");
-ShowUsers($employers, "Employers", "viewemployee.php?id=");
+ShowUsers($employers, "Employers", "viewemployer.php?id=");
 
 $employees = $DB->Query("SELECT * FROM users RIGHT JOIN employees ON employees.users_userID = users.userID");
 ShowUsers($employees, "Prospective Employees", "viewemployee.php?id=");

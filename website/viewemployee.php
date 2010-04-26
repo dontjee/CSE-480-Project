@@ -10,15 +10,23 @@ $user = $Auth->User();
 
 $employee = new Employee($_GET['id']);
 
-$Template->Title("Employer User View");
+$Template->Title("Employee Profile | " . $employee->FullName());
 $Template->CSS("buttons");
 $Template->CSS("form");
 $Template->CSS("viewemployee");
 $Template->JS("viewemployee");
 $Template->Header();
 
-?>
-	<span class="employee_name"><?php echo $employee->fullName(); ?></span>
+	if($Auth->User()->type == User::$ADMIN){ ?>
+		<!-- Only admin should see this button -->
+		<div id="buttons">
+			<a href="delete_user_action.php?userID=<?php echo $employer->userID; ?>">
+				<span class="action_button" id="delete_user">Delete User</span>
+			</a>
+		</div>
+	<?php } ?>
+	
+	<span class="employee_name"><?php echo $employee->FullName(); ?></span>
 		
 	<span class="row">
 		<label class="label">User Name: </label>
