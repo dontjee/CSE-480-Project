@@ -15,6 +15,7 @@ $jobType = $_POST['jobType'];
 $education = $_POST['education'];
 $keyword = $_POST['keyword'];
 $category = $_POST['category'];
+$skill = $_POST['skill'];
 
 $createResponse = $DB->Query("INSERT INTO jobannouncement(employerID, title, posted, closingDate, location, jobType, description, education) VALUES (%s, '%s', NOW(), '%s', '%s', '%s', '%s', '%s')",
 array($user->userID, $title, $closingDate, $location, $jobType, $description, $education)); 
@@ -28,6 +29,13 @@ foreach( $categories as &$catToInsert )
 {
     $createResponse2 = $DB->Query("INSERT INTO jobcategory(jobID, name) VALUES (%s, '%s')",
     array($jobID, $catToInsert)); 
+}
+
+$skills = explode( ",", $skill);
+foreach( $skills as &$skillToInsert )
+{
+    $createResponse4 = $DB->Query("INSERT INTO jobskills(jobID, name) VALUES (%s, '%s')",
+    array($jobID, $skillToInsert)); 
 }
 
 $words = explode( ",", $keyword);
