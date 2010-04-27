@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS employeekeywords (
   INDEX employeekeywords_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
     REFERENCES employees(users_userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION
 ) ENGINE=INNODB;
  
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS employeeskills (
   INDEX Skills_FKIndex1(employeeID),
   FOREIGN KEY(employeeID)
     REFERENCES employees(users_userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION
 ) ENGINE=INNODB;
  
@@ -100,11 +100,11 @@ CREATE TABLE IF NOT EXISTS comments (
   INDEX employers_has_employees_FKIndex2(employeeID),
   FOREIGN KEY(employerID)
     REFERENCES employers(users_userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION,
   FOREIGN KEY(employeeID)
     REFERENCES employees(users_userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION
 ) ENGINE=INNODB;
  
@@ -177,11 +177,11 @@ CREATE TABLE IF NOT EXISTS notification (
   INDEX notification_FKIndex3(jobID),
   FOREIGN KEY(fromID)
     REFERENCES users(userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION,
   FOREIGN KEY(toID)
     REFERENCES users(userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION,
   FOREIGN KEY(jobID)
     REFERENCES jobannouncement(jobID)
