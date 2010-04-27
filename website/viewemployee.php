@@ -2,15 +2,13 @@
 
 require_once("std.php");
 require_once("classes/Employee.php");
-require_once("classes/Comment.php");
 
-$Auth->Restrict("Employer");
-
-$user = $Auth->User();
+$Auth->UsersOnly();
+$Auth->DontAllow(User::$EMPLOYEE);
 
 $employee = new Employee($_GET['id']);
 
-$Template->Title("Employee Profile | " . $employee->FullName());
+//$Template->Title("Employee Profile | " . $employee->FullName());
 $Template->CSS("buttons");
 $Template->CSS("form");
 $Template->CSS("viewemployee");
@@ -20,7 +18,7 @@ $Template->Header();
 	if($Auth->User()->type == User::$ADMIN){ ?>
 		<!-- Only admin should see this button -->
 		<div id="buttons">
-			<a href="delete_user_action.php?userID=<?php echo $employer->userID; ?>">
+			<a href="delete_user_action.php?userID=<?php echo $employee->userID; ?>">
 				<span class="action_button" id="delete_user">Delete User</span>
 			</a>
 		</div>
