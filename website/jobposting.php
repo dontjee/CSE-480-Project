@@ -37,7 +37,7 @@ $skillString = implode(", ",array_map('ucfirst',$skills));
 			<span class="action_button" id="bookmark">Bookmark Job</span>
 			<span class="action_button" id="interested">Express Interest</span>
 		</div>
-	<?php }else if($user->type == User::$ADMIN){ ?>
+	<?php }else{ ?>
 		<!-- Only admin should see this button -->
 		<div id="buttons">
 			<span class="action_button" id="delete_job">Delete Job Posting</span>
@@ -105,7 +105,12 @@ $skillString = implode(", ",array_map('ucfirst',$skills));
 			<?php echo $skillString; ?>
 		</span>
 	</span>
-		
+	
+	<br style="clear:both"/>
+	<span id="buttons">
+		<span class="action_button" id="search_employees">Find Prospective Employees</span>
+		<input type="hidden" id="jobID" value="<?php echo $job->jobID;?>"/>
+	</span>
 <?php
 $Template->Footer();
 ?>

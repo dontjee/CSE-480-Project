@@ -5,12 +5,13 @@ $Auth->Restrict("Employer");
 require_once("classes/Job.php");
 require_once("classes/Employee.php");
 require_once("classes/EmployeeRepository.php");
-if (isset($_GET['jobID']) && $_GET['jobID']!="") {
+if (isset($_GET['jobID'])) {
 	$employees = EmployeeRepository::GetEmployeesForJob($_GET['jobID']);
-}else if ($_POST==array()){
-	$employees = EmployeeRepository::GetEmployees($_POST);
-}else{
+}else if (isset($_POST['ranked']) && sizeof($_POST) > 1){
 	$employees = EmployeeRepository::GetRankedEmployees($_POST);
+}else{
+	if (isset($_POST['ranked'])) unset($_POST['ranked']);
+	$employees = EmployeeRepository::GetEmployees($_POST);
 }
 
 ?>
