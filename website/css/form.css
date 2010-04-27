@@ -1,4 +1,4 @@
-.input{
+.input, select, textarea{
 	height: 26px;
 	width: 200px;
 	border: 1px solid #999;
