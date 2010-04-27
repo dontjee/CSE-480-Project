@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS jobannouncement (
   employerID INTEGER UNSIGNED NOT NULL,
   title VARCHAR(32) NULL,
   posted TIMESTAMP NULL,
-  closingDate TIME NULL,
+  closingDate DATETIME NULL,
   location VARCHAR(64) NULL,
   jobType ENUM('Full Time','Temporary','Contract') NULL,
   description TEXT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS bookmarks (
   INDEX employees_has_Job_FKIndex2(jobID),
   FOREIGN KEY(employeeID)
     REFERENCES employees(users_userID)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION,
   FOREIGN KEY(jobID)
     REFERENCES jobannouncement(jobID)

@@ -45,7 +45,7 @@ $keywordText = trim($keywordText, ", ");
 	<br/>
 	<span class="row">
 		<label class="label" for="description">Description</label>
-		<textarea name="description" rows="2" cols="20"><?php echo $job->description; ?></textarea>
+		<textarea name="description" class="field textarea" rows="2" cols="20"><?php echo $job->description; ?></textarea>
 	</span>
 	<br/>
 	
@@ -63,7 +63,7 @@ $keywordText = trim($keywordText, ", ");
 	
 	<span class="row">
 		<label class="label" for="jobType">Job Type</label>
-		<select name="jobType" class="field">
+		<select name="jobType" class="field select">
 			<option value="Full Time" <?php if($job->jobType == "Full Time") echo "selected='selected'"; ?>>Full Time</option>
 			<option value="Temporary" <?php if($job->jobType == "Temporary") echo "selected='selected'"; ?>>Temporary</option>
 			<option value="Contract" <?php if($job->jobType == "Contract") echo "selected='selected'"; ?>>Contract</option>
@@ -73,7 +73,7 @@ $keywordText = trim($keywordText, ", ");
 
 	<span class="row">
 		<label class="label" for="education">Education Requirement</label>
-		<select name="education" class="field">
+		<select name="education" class="field select">
 			<option value="High School" <?php if($job->education == "High School") echo "selected='selected'"; ?>>High School</option>
 			<option value="College" <?php if($job->education == "College") echo "selected='selected'"; ?>>College</option>
 			<option value="Postgraduate" <?php if($job->education == "Postgraduate") echo "selected='selected'"; ?>>Postgraduate</option>

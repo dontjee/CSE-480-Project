@@ -8,8 +8,7 @@ $user = $Auth->User();
 
 $title = $_POST['title'];
 $description = $_POST['description'];
-$closingDateString = $_POST['closingDate'];
-$closingDate = date($closingDateString);
+$closingDate = $_POST['closingDate'];
 $location = $_POST['location'];
 $jobType = $_POST['jobType'];
 $education = $_POST['education'];

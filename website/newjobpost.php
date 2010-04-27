@@ -6,6 +6,9 @@ $Auth->Restrict("Employer");
 
 $Template->CSS("job");
 $Template->CSS("form");
+$Template->CSS("smoothness/jquery-ui-1.8.custom");
+$Template->JS("jquery-ui-1.8.custom.min");
+$Template->JS("newjobpost");
 $Template->Header();
 
 
@@ -27,7 +30,7 @@ $Template->Header();
 	
 	<span class="row">
 		<label class="label" for="closingDate">Job Close Date</label>
-		<input name="closingDate" class="field input" type="text"/>
+		<input name="closingDate" id="closingDate" class="field input" type="text"/>
 	</span>
 	<br/>
 
