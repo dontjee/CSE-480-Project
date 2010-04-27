@@ -27,6 +27,7 @@ $Template->Header();
 
 <br/>
 <span id="search_button" class="action_button">Search</span>
+<span id="search_ranked_button" class="action_button">Search Ranked</span>
 <br/>
 <br/>
 
