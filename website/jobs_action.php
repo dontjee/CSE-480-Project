@@ -11,22 +11,21 @@ if( isset($_GET["sortByPosted"]) && $_GET["sortByPosted"] == "1" ){
 }
 
 if ($Auth->User()->type==User::$EMPLOYER){
-	$jobs = JobRepository::GetJobsForListing($Auth->User()->userID, $sortByPosted);
-}else if ($_POST==array()){
-	$jobs = JobRepository::SearchJobs($_POST, $sortByPosted);
-}else{
-	$jobs = JobRepository::SearchRankedJobs($_POST);
+	$_POST['sort']="title";
+	$_POST['employerID']=$Auth->User()->userID;
 }
-
+if (isset($_POST['ranked']) && sizeof($_POST) > 1){
+	$jobs = JobRepository::SearchRankedJobs($_POST);
+}else{
+	if (isset($_POST['ranked'])) unset($_POST['ranked']);
+	$jobs = JobRepository::SearchJobs($_POST);
+}
 
 
 ?>
 
 
 
-<p>Sort By: 
-    <a href="jobs.php">Title</a> | <a href="jobs.php?sortByPosted=1">Date Posted</a>
-</p>
 <table>
     <tr>
 	    <th style="width:175px;"><b>Employer Name</th>

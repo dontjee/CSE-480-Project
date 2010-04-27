@@ -2,6 +2,7 @@
 
 require_once("std.php");
 require_once("classes/Employee.php");
+require_once("classes/Comment.php");
 
 $Auth->UsersOnly();
 $Auth->DontAllow(User::$EMPLOYEE);
@@ -97,7 +98,9 @@ $Template->Header();
 
 	<!-- Allow Employers to comment on this person internally -->
 	<?php
-		$comments = $employee->GetComments($user->userID);
+	echo "before";
+		$comments = $employee->GetComments($Auth->User()->userID);
+		echo "after";
 	?>
 	<div class="group">
 		<table id="comments">

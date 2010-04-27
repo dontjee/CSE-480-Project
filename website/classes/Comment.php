@@ -15,8 +15,11 @@ class Comment{
 	    switch( func_num_args() )
 	    {
 		case 3:
-		    self::construct3($argv[0], $argv[1], $argv[2] );
+		    self::construct3($argv[0], $argv[1], $argv[2]);
 		    break;
+		case 4:
+			self::construct4($argv[0], $argv[1], $argv[2], $argv[3]);
+			break;
 		default:
 		case 5:
 		    self::construct5($argv[0], $argv[1], $argv[2], $argv[3], $argv[4] );
@@ -34,5 +37,11 @@ class Comment{
 		$this->employeeName = $employeeName;
 		$this->message = $message;
 		$this->postedTime = $postedTime;
+	}
+	function construct4($employeeName, $message, $postedTime, $employeeID){
+		$this->employeeName = $employeeName;
+		$this->message = $message;
+		$this->postedTime = $postedTime;
+		$this->employeeID = $employeeID;
 	}
 }

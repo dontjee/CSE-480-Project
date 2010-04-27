@@ -28,7 +28,7 @@ foreach( $comments as &$comment )
 {?>
     <tr>
 	<td>
-	    <?php echo $comment->employeeName;?>
+	    <a href="viewemployee.php?id=<?php echo $comment->employeeID;?>" ><?php echo $comment->employeeName;?></a>
 	</td>
 	<td>
 	    <? echo $comment->message; ?>

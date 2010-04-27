@@ -19,8 +19,15 @@ $Template->Header();
 <label class="label" for="empkeywords">Seeking Keywords</label>
 <input class="field input" name="empkeywords" id="empkeywords" type="text" /><br/>
 
-<label class="label" for="education">Education Level</label>
-<input class="field input" name="education" id="education" type="text" /><br/>
+<label class="label" for="education">Education Level</label>	
+<select class="field select" name="education" >
+	<?php 
+	$education=array("","High School","College","PostGraduate");
+	foreach($education as $option){
+		echo "<option>$option</option>";
+	}
+	?>
+</select><br/>
 
 <label class="label" for="empskills">Skills</label>
 <input class="field input" name="empskills" id="empskills" type="text" /><br/>

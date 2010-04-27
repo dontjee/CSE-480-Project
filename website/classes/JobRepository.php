@@ -44,8 +44,20 @@ class JobRepository{
 		return $tempJobsArray;
 	}
 	
-	public static function SearchJobs($searchArray=array(), $sortByPostedDate=false){
+	public static function SearchJobs($searchArray=array()){
 		global $DB;
+		global $Auth;
+		
+		
+		$employeeID = $Auth->User()->userID;		
+
+		if (isset($searchArray['employerID'])){
+			$employerID=$searchArray['employerID'];
+			unset($searchArray['employerID']);
+		}
+		$sortByPostedDate=$searchArray['sort'];
+		unset($searchArray['sort']);
+		
 		
 		$query = "SELECT DISTINCT ja.jobID, er.name, ja.title, ja.posted, ja.closingDate, ja.location, ja.jobType, ja.description, ja.education 
 				FROM jobannouncement AS ja 
@@ -56,10 +68,11 @@ class JobRepository{
 		
 		$args = array();
 
+		$query.="WHERE NOT EXISTS(SELECT * FROM bookmarks WHERE ja.jobID=bookmarks.jobID AND bookmarks.employeeID=$employeeID) ";
 		if ($searchArray!=array()){
-			$query.="WHERE ";
+			 $query.="AND (";
 		}
-		
+
 		if( isset($searchArray["title"]) && $searchArray['title']!=""){
 			$query.="ja.title LIKE '%%%s%%' OR ";
 			array_push($args,$searchArray['title']);
@@ -93,14 +106,22 @@ class JobRepository{
 		
 		if ($searchArray!=array()){
 			$query=substr($query,0,-3);
+			
+			$query.=") ";
+		}
+		
+		
+		if(isset($employerID)){
+			$query.="AND ja.employerID=$employerID ";
 		}
 				
 		$orderBy = "ORDER BY title ";
-		if ($sortByPostedDate){
+		if ($sortByPostedDate=='false'){
 			$orderBy = "ORDER BY posted ";
 		}
 		
 		$query.=$orderBy;
+
 		
 		$jobsResult = $DB->Query($query, $args);
 		
