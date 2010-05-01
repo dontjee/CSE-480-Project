@@ -8,7 +8,7 @@ require_once("std.php");
 
 $jobID = $_GET['jobID'];
 
-$Auth->Restrict(User::$ADMIN);
+
 
 $DB->Query("DELETE FROM jobannouncement
 			WHERE jobID = %s",

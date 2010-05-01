@@ -20,22 +20,22 @@ $category = $_POST['category'];
 $createResponse = $DB->Query("UPDATE jobannouncement SET title='%s', closingDate=FROM_UNIXTIME(%s), location='%s', jobType='%s', description='%s', education='%s' WHERE jobID = %s",
 array($title, $closingDate, $location, $jobType, $description, $education, $id)); 
 
-$deleteResponse = $DB->Query("DELETE FROM jobcategory WHERE jobID = %s AND employerID = %s",
-    array($id, $user->userID)); 
+$deleteResponse = $DB->Query("DELETE FROM jobcategory WHERE jobID = %s",
+    array($id)); 
 $categories = explode( ",", $category);
 foreach( $categories as &$catToInsert )
 {
-    $createResponse2 = $DB->Query("INSERT INTO jobcategory(jobID, employerID, name) VALUES (%s, %s, '%s')",
+    $createResponse2 = $DB->Query("INSERT INTO jobcategory(jobID, name) VALUES (%s, '%s')",
     array($id, $user->userID, $catToInsert)); 
 }
 
 
-$deleteResponse2 = $DB->Query("DELETE FROM jobkeywords WHERE jobID = %s AND employerID = %s",
-    array($id, $user->userID)); 
+$deleteResponse2 = $DB->Query("DELETE FROM jobkeywords WHERE jobID = %s",
+    array($id)); 
 $words = explode( ",", $keyword);
 foreach( $words as &$word )
 {
-    $createResponse3 = $DB->Query("INSERT INTO jobkeywords(jobID, employerID, name) VALUES (%s, %s, '%s')",
+    $createResponse3 = $DB->Query("INSERT INTO jobkeywords(jobID, name) VALUES (%s, '%s')",
     array($id, $user->userID, $word)); 
 }
 
